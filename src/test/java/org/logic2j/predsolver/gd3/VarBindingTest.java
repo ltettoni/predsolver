@@ -12,12 +12,14 @@ import org.logic2j.predsolver.model.Var;
 import org.logic2j.predsolver.solve.Solver;
 
 /**
- * TODO: link two variables together. One solution (compatible with predicate calculus)
- * is equal(A, B), but from an API perspective, A.bind(B) would be simpler.
+ * TODO: link two variables together. One solution (compatible with predicate
+ * calculus) is equal(A, B), but from an API perspective, A.bind(B) would be
+ * simpler.
  * 
  * @author Laurent
  */
 public class VarBindingTest {
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(VarBindingTest.class);
 
 	private Var<Integer> vInt;
 
@@ -80,7 +82,7 @@ public class VarBindingTest {
 		// integer(X) is an infinite set
 		Predicate pred = integer(vInt);
 		new Solver().solveAll(pred);
-		System.out.println("solved values=" + vInt);
+		logger.info("solved values={}", vInt);
 		assertTrue(vInt.isInfinite());
 	}
 
@@ -89,7 +91,7 @@ public class VarBindingTest {
 	public void testSolveAllValuesInfinite2() {
 		Predicate pred = integer(vInt);
 		List<Integer> xs = new Solver().solve(pred, vInt);
-		System.out.println("solved values=" + xs);
+		logger.info("solved values={}", xs);
 	}
 
 }

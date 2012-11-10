@@ -15,7 +15,7 @@ import org.logic2j.predsolver.solve.Solver;
  * @author Laurent
  */
 public class LogicProviderUseCaseTest {
-
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(LogicProviderUseCaseTest.class);
 	private Var<Integer> vInt;
 
 	@Before
@@ -32,7 +32,7 @@ public class LogicProviderUseCaseTest {
 		// square(3, 9)
 		Predicate pred = square(cst(3), cst(9));
 		boolean checked = new Solver().check(pred);
-		System.out.println("check=" + checked);
+		logger.info("check={}", checked);
 		assertTrue(checked);
 	}
 
@@ -41,7 +41,7 @@ public class LogicProviderUseCaseTest {
 		// square(3, 8)
 		Predicate pred = square(cst(3), cst(8));
 		boolean checked = new Solver().check(pred);
-		System.out.println("check=" + checked);
+		logger.info("check={}", checked);
 		assertFalse(checked);
 	}
 
@@ -54,24 +54,24 @@ public class LogicProviderUseCaseTest {
 		// square(3, X)
 		Predicate pred = square(cst(3), vInt);
 		new Solver().solveAll(pred);
-		System.out.println("solved values=" + vInt);
+		logger.info("solved values={}", vInt);
 		assertTrue(vInt.isBound());
 		assertTrue(vInt.isScalar());
 		assertEquals(new Integer(9), vInt.getValue());
 	}
 
-//	@Test
-//	public void testSolveAllValues2() {
-//		Predicate pred = string(vDbl, vStr);
-//		List<Tuple2<Double, String>> xs = new Solver().solve(pred, vDbl, vStr);
-//		System.out.println("solved values=" + xs);
-//	}
+	// @Test
+	// public void testSolveAllValues2() {
+	// Predicate pred = string(vDbl, vStr);
+	// List<Tuple2<Double, String>> xs = new Solver().solve(pred, vDbl, vStr);
+	// logger.info("solved values=" + xs);
+	// }
 
 	@Test
 	public void testSolveIteratingOne() {
 		Predicate pred = square(cst(3), vInt);
 		for (Integer value : new Solver().solveIterating(pred, vInt)) {
-			System.out.println("solved value=" + value);
+			logger.info("solved value={}", value);
 		}
 	}
 
