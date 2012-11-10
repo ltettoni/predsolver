@@ -14,7 +14,7 @@ import org.logic2j.predsolver.model.Var;
  * @author Laurent
  */
 public class JdbcProvider implements Provider {
-	
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JdbcProvider.class);
 	
 	/**
 	 * Will solve thePredicate and project tuples of theVars
@@ -24,7 +24,7 @@ public class JdbcProvider implements Provider {
 	 */
 	// TODO I wonder if "solve" should be part of a Provider or a Solver?
 	public JdbcQuery solveAsQuery(Predicate thePredicate, Var<?>... theVars) {
-		System.out.println("Solving as query: " + thePredicate);
+		logger.info("Solving as query: {}", thePredicate);
 		return new JdbcQuery();
 	}
 
