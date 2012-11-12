@@ -25,13 +25,13 @@ public class Solver {
 		return false;
 	}
 
-	/**
-	 * Solve all solutions and bind all values by side effect into {@link Var}iables referenced by pred.
-	 * @param pred
-	 */
-	public void solveAll(Predicate pred) {
-		return;
-	}
+//	/**
+//	 * Solve all solutions and bind all values by side effect into {@link Var}iables referenced by pred.
+//	 * @param pred
+//	 */
+//	public void solveAll(Predicate pred) {
+//		return;
+//	}
 
 	/**
 	 * Solve all solutions of pred for the specified {@link Var}iable x (that must appear within pred),

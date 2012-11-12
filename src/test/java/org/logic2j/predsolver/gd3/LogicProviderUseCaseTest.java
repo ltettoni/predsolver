@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import static org.logic2j.predsolver.impl.LogicProvider.*;
 import static org.logic2j.predsolver.model.Var.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.logic2j.predsolver.model.Predicate;
@@ -53,8 +55,8 @@ public class LogicProviderUseCaseTest {
 	public void testSolveAllValuesForScalar() {
 		// square(3, X)
 		Predicate pred = square(cst(3), vInt);
-		new Solver().solveAll(pred);
-		logger.info("solved values={}", vInt);
+		final List<Integer> solutions = new Solver().solve(pred, vInt);
+		logger.info("solved values={}", solutions);
 		assertTrue(vInt.isBound());
 		assertTrue(vInt.isScalar());
 		assertEquals(new Integer(9), vInt.getValue());

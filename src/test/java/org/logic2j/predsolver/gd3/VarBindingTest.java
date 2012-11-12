@@ -81,8 +81,8 @@ public class VarBindingTest {
 	public void testSolveAllValuesInfinite() {
 		// integer(X) is an infinite set
 		Predicate pred = integer(vInt);
-		new Solver().solveAll(pred);
-		logger.info("solved values={}", vInt);
+		final List<Integer> solutions = new Solver().solve(pred, vInt);
+		logger.info("solved values={}", solutions);
 		assertTrue(vInt.isInfinite());
 	}
 
