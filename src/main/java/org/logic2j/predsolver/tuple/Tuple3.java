@@ -1,8 +1,7 @@
 package org.logic2j.predsolver.tuple;
 
-import java.io.Serializable;
 
-public class Tuple3<T0, T1, T2> implements Serializable {
+public class Tuple3<T0, T1, T2> implements Tuple {
 	private static final long serialVersionUID = 1L;
 
 	public final T0 v0;

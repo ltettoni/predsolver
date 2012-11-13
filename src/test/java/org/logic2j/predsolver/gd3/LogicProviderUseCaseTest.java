@@ -46,7 +46,7 @@ public class LogicProviderUseCaseTest {
 		logger.info("check={}", checked);
 		assertFalse(checked);
 	}
-
+ 
 	// ------
 	// solveAll without specifying projected values - does this make sense?
 	// ------
@@ -55,7 +55,7 @@ public class LogicProviderUseCaseTest {
 	public void testSolveAllValuesForScalar() {
 		// square(3, X)
 		Predicate pred = square(cst(3), vInt);
-		final List<Integer> solutions = new Solver().solve(pred, vInt);
+		final List<Integer> solutions = new Solver().solve(pred, vInt).getList();
 		logger.info("solved values={}", solutions);
 		assertTrue(vInt.isBound());
 		assertTrue(vInt.isScalar());
@@ -72,7 +72,8 @@ public class LogicProviderUseCaseTest {
 	@Test
 	public void testSolveIteratingOne() {
 		Predicate pred = square(cst(3), vInt);
-		for (Integer value : new Solver().solveIterating(pred, vInt)) {
+		Iterable<Integer> iterator = new Solver().solve(pred, vInt).iterator();
+		for (Integer value : iterator) {
 			logger.info("solved value={}", value);
 		}
 	}

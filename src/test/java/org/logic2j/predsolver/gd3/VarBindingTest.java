@@ -80,8 +80,8 @@ public class VarBindingTest {
 	@Test
 	public void testSolveAllValuesInfinite() {
 		// integer(X) is an infinite set
-		Predicate pred = integer(vInt);
-		final List<Integer> solutions = new Solver().solve(pred, vInt);
+		Predicate pred = integer(vInt); 
+		final List<Integer> solutions = new Solver().solve(pred, vInt).getList(); 
 		logger.info("solved values={}", solutions);
 		assertTrue(vInt.isInfinite());
 	}
@@ -90,7 +90,7 @@ public class VarBindingTest {
 	@Test
 	public void testSolveAllValuesInfinite2() {
 		Predicate pred = integer(vInt);
-		List<Integer> xs = new Solver().solve(pred, vInt);
+		List<Integer> xs = new Solver().solve(pred, vInt).getList();
 		logger.info("solved values={}", xs);
 	}
 
