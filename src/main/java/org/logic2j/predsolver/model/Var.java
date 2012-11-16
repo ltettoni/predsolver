@@ -16,9 +16,8 @@ import java.util.List;
  */
 public class Var<T> implements Term {
 
-	private List<T> values;
-	private boolean infinite = false;
 	private String name = null; // Optional name
+	private List<T> values;
 
 	// Will a Var need to carry its runtime type?
 
@@ -86,16 +85,6 @@ public class Var<T> implements Term {
 		} else {
 			return new Long(this.values.size());
 		}
-	}
-
-	public boolean isInfinite() {
-		if (this.infinite) {
-			return true;
-		}
-		if (size() == null) {
-			return false;
-		}
-		return size() == Long.MAX_VALUE;
 	}
 
 	public boolean isScalar() {

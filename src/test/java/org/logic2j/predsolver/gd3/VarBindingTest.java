@@ -35,7 +35,6 @@ public class VarBindingTest {
 	public void testFreeVar() {
 		assertTrue(this.vInt.isFree());
 		assertFalse(this.vInt.isBound());
-		assertFalse(this.vInt.isInfinite());
 		assertFalse(this.vInt.isScalar());
 		assertNull(this.vInt.size());
 	}
@@ -48,7 +47,6 @@ public class VarBindingTest {
 		this.vInt.setValue(10);
 		assertFalse(this.vInt.isFree());
 		assertTrue(this.vInt.isBound());
-		assertFalse(this.vInt.isInfinite());
 		assertTrue(this.vInt.isScalar());
 		assertEquals(new Long(1), this.vInt.size());
 		assertEquals(new Integer(10), this.vInt.getValue());
@@ -64,7 +62,6 @@ public class VarBindingTest {
 		this.vInt.setValues(1, 2, 3, 4);
 		assertFalse(this.vInt.isFree());
 		assertTrue(this.vInt.isBound());
-		assertFalse(this.vInt.isInfinite());
 		assertFalse(this.vInt.isScalar());
 		assertEquals(new Long(4), this.vInt.size());
 		try {
@@ -83,7 +80,6 @@ public class VarBindingTest {
 		Predicate pred = integer(vInt); 
 		final List<Integer> solutions = new Solver().solve(pred, vInt).getList(); 
 		logger.info("solved values={}", solutions);
-		assertTrue(vInt.isInfinite());
 	}
 
 	// solve with one projection just gives a List

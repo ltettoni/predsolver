@@ -22,7 +22,7 @@ public class Solver {
 		return false;
 	}
 
-	// TODO
+	// TODO Does this make sense to solve without projecting vars - we would just count solutions?
 //	public Solution solve(Predicate pred) {
 //		return null;
 //	}

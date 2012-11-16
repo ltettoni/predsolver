@@ -15,6 +15,10 @@ public class Solution1<T0> extends Solution {
 		return Collections.emptyList();
 	}
 
+	public Iterable<Tuple1<T0>> iterable() {
+		return tuples();
+	}
+
 	@Override
 	public int nbVars() {
 		return 1;
