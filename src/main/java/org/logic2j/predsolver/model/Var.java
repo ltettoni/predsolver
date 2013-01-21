@@ -32,11 +32,19 @@ public class Var<T> implements Term {
 
 	/**
 	 * Factory for a constant value.
+	 * 
 	 * @param constant
 	 * @return A {@link Var} whose value is bound (and fixed).
 	 */
 	public static <T> Var<T> cst(T... constant) {
-		final Var<T> var = new Var<T>();
+		// Provide some name - helpful for tracing
+		final String name;
+		if (constant.length == 1) {
+			name = "cst(" + constant[0] + ')';
+		} else {
+			name = null;
+		}
+		final Var<T> var = new Var<T>(name);
 		var.setValues(constant);
 		return var;
 	}
@@ -102,12 +110,21 @@ public class Var<T> implements Term {
 		return this.values == null;
 	}
 
+	// -----------------
+	// Core Object
+	// -----------------
+
 	@Override
 	public String toString() {
 		if (name != null) {
 			return name;
 		}
 		return "Var@" + Integer.toHexString(this.hashCode());
+	}
+
+	public boolean unify(T display) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

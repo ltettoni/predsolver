@@ -33,6 +33,10 @@ public class Gd3Provider extends JdbcProvider {
 		return new Predicate(INSTANCE, "owner", theArtefact, theOwner);
 	}
 
+	public static Predicate url(Var<? extends Number> theArtefact, Var<? extends CharSequence> theAddress) {
+		return new Predicate(INSTANCE, "url", theArtefact, theAddress);
+	}
+
 	public static Predicate classif(Var<? extends Number> theArtefact, Var<String> cst) {
 		return new Predicate(INSTANCE, "classification", theArtefact, cst);
 	}

@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 import org.logic2j.predsolver.Provider;
 import org.logic2j.predsolver.impl.LogicProvider;
+import org.logic2j.predsolver.solve.solution.Solution;
 
 /**
- * A {@link Predicate} relate {@link Term}(s) together to express true statements.
+ * A {@link Predicate} relate {@link Term}(s) together to express true
+ * statements.
  * 
  * @author Laurent
  */
@@ -42,17 +44,41 @@ public class Predicate implements Term {
 	public Predicate negated() {
 		return new Predicate(LogicProvider.INSTANCE, "not", this);
 	}
+	// -----------------
+	// Logic
+	// -----------------
+
+	public boolean check() {
+		throw new UnsupportedOperationException("Not implemented: check " + this);
+	}
+
+	public Solution solve(Var<?>... vars) {
+		throw new UnsupportedOperationException("Not implemented: solve " + this);
+	}
 	
 	// -----------------
-	// Core Object 
+	// Accessors
 	// -----------------
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public Term[] getTerms() {
+		return terms;
+	}
+
+	// -----------------
+	// Core Object
+	// -----------------
+
 	@Override
 	public String toString() {
-		if (this.terms==null) {
-		return this.name;
+		if (this.terms == null) {
+			return this.name;
 		}
 		String asList = String.valueOf(Arrays.asList(this.terms));
-		return this.name + '(' + asList.substring(1,  asList.length()-1) + ')';
+		return this.name + '(' + asList.substring(1, asList.length() - 1) + ')';
 	}
+
 }

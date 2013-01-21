@@ -1,6 +1,8 @@
 package org.logic2j.predsolver.solve.solution;
 
 import org.logic2j.predsolver.JdbcQuery;
+import org.logic2j.predsolver.model.Predicate;
+import org.logic2j.predsolver.model.Var;
 import org.logic2j.predsolver.solve.Cardinality;
 
 /**
@@ -14,6 +16,12 @@ import org.logic2j.predsolver.solve.Cardinality;
  * @author Laurent
  */
 public abstract class Solution {
+
+	protected Predicate pred;
+
+	public Solution(Predicate pred) {
+		this.pred = pred;
+	}
 
 	// Dimension of the solution
 	public abstract int nbVars();

@@ -57,9 +57,9 @@ public class LogicProviderUseCaseTest {
 		Predicate pred = square(cst(3), vInt);
 		final List<Integer> solutions = new Solver().solve(pred, vInt).getList();
 		logger.info("solved values={}", solutions);
-		assertTrue(vInt.isBound());
-		assertTrue(vInt.isScalar());
-		assertEquals(new Integer(9), vInt.getValue());
+		assertNotNull(solutions);
+		assertEquals(1, solutions.size());
+		assertEquals(new Integer(9), solutions.get(0));
 	}
 
 	// @Test
