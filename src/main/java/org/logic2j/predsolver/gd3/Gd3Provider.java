@@ -1,8 +1,9 @@
 package org.logic2j.predsolver.gd3;
 
-import static org.logic2j.predsolver.model.Var.*;
+import static org.logic2j.predsolver.model.Binding.*;
 
 import org.logic2j.predsolver.impl.JdbcProvider;
+import org.logic2j.predsolver.model.Binding;
 import org.logic2j.predsolver.model.Predicate;
 import org.logic2j.predsolver.model.Var;
 
@@ -37,7 +38,7 @@ public class Gd3Provider extends JdbcProvider {
 		return new Predicate(INSTANCE, "url", theArtefact, theAddress);
 	}
 
-	public static Predicate classif(Var<? extends Number> theArtefact, Var<String> cst) {
+	public static Predicate classif(Var<? extends Number> theArtefact, Binding<String> cst) {
 		return new Predicate(INSTANCE, "classification", theArtefact, cst);
 	}
 	

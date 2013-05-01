@@ -14,7 +14,7 @@ public class Tuple2<T0, T1> implements Tuple {
 
 	@Override
 	public String toString() {
-		return "[" + v0 + ", " + v1 + "]";
+		return "<" + v0 + ", " + v1 + ">";
 	}
 
 }

@@ -8,12 +8,18 @@ import org.logic2j.predsolver.model.Var;
 
 public class CommonName extends Predicate implements Artefact.Predicate2<CharSequence> {
 
-	public CommonName(Provider theProvider, String theName, Term[] theArguments) {
-		super(null, CommonName.class.getSimpleName(), theArguments);
-	}
+    public CommonName(Provider theProvider, String theName, Term[] theArguments) {
+        super(null, CommonName.class.getSimpleName(), theArguments);
+    }
 
-	public boolean apply(Artefact that, Var<Artefact> theArgument, Var<CharSequence> theVar) {
-		return theArgument.unify(that) && theVar.unify(that.getDisplay());
-	}
+    @Override
+    public CharSequence[] forward(Artefact that) {
+        return new String[] {that.getDisplay()};
+    }
+
+    @Override
+    public Artefact[] reverse(CharSequence source) {
+        return null;
+    }
 
 }

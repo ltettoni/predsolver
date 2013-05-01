@@ -1,0 +1,31 @@
+Combine AND and OR to see if it still works...
+-> seems OK so far
+
+Combined (hierarchical) AND does not work!!
+-> fixed
+
+Bridge cannot distinguish if there's no var, an unbound var, or a bound var without solution (empty)
+  (happens in And: when ANDing 1,2 with 3,4 we have no records, and checking for X tells it's free...)
+-> fixed: vars tracked now
+
+See how to simplify the implementation of binary operators by specifing forward and reverse functions.
+-> done
+
+Extend solve() to really solve for Tuple2, Tuple3 (at least)
+-> done
+
+Code some real use cases involving, application, session, conversation, and DB scopes.
+
+Predicates of arity/0 ? (boolean)
+
+Design and code the DB predicates (SqlBuilder et al)
+
+
+
+Avoid using Term to instantiate predicates. Split data predicates to using Binding, and logic operators by using Predicate
+
+Refactor "Record" to not use a Map, but an array.
+
+
+Integration with Logic2j or an inference engine?
+

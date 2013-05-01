@@ -1,130 +1,88 @@
 package org.logic2j.predsolver.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Comparator;
 
 /**
- * A {@link Var} is the endpoint of a constraint, it can hold either zero, one,
- * or several simultaneous values, finite or infinite.
- * 
- * It is used to specify parameters to a problem, or to extract results from the
- * solution.
+ * A {@link Var} is a typed and named placeholder used to represent the same
+ * value(s) in a logical expression. It is used to specify parameters to a
+ * problem, or to identify results from the solution.
  * 
  * @author Laurent
  * @param <T>
  */
 public class Var<T> implements Term {
 
-	private String name = null; // Optional name
-	private List<T> values;
+    private static final char PRIVATE_VAR_PREFIX = '_';
+    private static int anonymousNamingCounter = 0;
 
-	// Will a Var need to carry its runtime type?
+    private String name = null; // Optional name
+    public final static Comparator<? super Var<?>> COMPARATOR_BY_NAME = new Comparator<Var<?>>() {
 
-	public Var() {
-		super();
-	}
+        @Override
+        public int compare(Var<?> v0, Var<?> v1) {
+            return v0.getName().compareTo(v1.getName());
+        }
+    };
 
-	public Var(String name) {
-		super();
-		this.name = name;
-	}
+    // FIXME Will a Var need to carry its runtime type?
 
-	/**
-	 * Factory for a constant value.
-	 * 
-	 * @param constant
-	 * @return A {@link Var} whose value is bound (and fixed).
-	 */
-	public static <T> Var<T> cst(T... constant) {
-		// Provide some name - helpful for tracing
-		final String name;
-		if (constant.length == 1) {
-			name = "cst(" + constant[0] + ')';
-		} else {
-			name = null;
-		}
-		final Var<T> var = new Var<T>(name);
-		var.setValues(constant);
-		return var;
-	}
+    // Anonymous variable
+    public Var() {
+        this(null);
+    }
 
-	// Set values
+    // Public named var
+    public Var(String theName) {
+        if (theName == null) {
+            this.name = String.valueOf(PRIVATE_VAR_PREFIX) + 'v' + (++anonymousNamingCounter);
+        } else {
+            if (theName.charAt(0)==PRIVATE_VAR_PREFIX) {
+                throw new IllegalArgumentException("Cannot name a public variable as \"" + theName + "\" - cannot start with " + PRIVATE_VAR_PREFIX);
+            }
+            this.name = theName;
+        }
+    }
 
-	public void setValue(T theValue) {
-		this.values = new ArrayList<T>(1);
-		this.values.add(theValue);
-	}
+    /**
+     * Public variables are those accessible across predicate invocations, and 
+     * can be extracted from the solver.
+     * @return
+     */
+    public boolean isPublic() {
+        return this.name.charAt(0) != PRIVATE_VAR_PREFIX;
+    }
 
-	public void setValues(List<T> theValues) {
-		this.values = new ArrayList<T>(theValues);
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setValues(T... theValues) {
-		this.values = Arrays.asList(theValues);
-	}
+    // -----------------
+    // Convert to Bindings
+    // -----------------
 
-	public void bind(Var<T> other) {
-		// Something...
-	}
+    public Binding<T> freeBinding() {
+        return new Binding<T>(this);
+    }
 
-	// Get single or multiple
+    public Binding<T> boundTo(Collection<T> theValues) {
+        return new Binding<T>(this, theValues);
+    }
 
-	public T getValue() {
-		if (!isBound()) {
-			throw new IllegalArgumentException("Term " + this + " is not bound");
-		}
-		if (!isScalar()) {
-			throw new IllegalArgumentException("Term " + this + " is not a scalar");
-		}
-		return this.values.get(0);
-	}
+    public Binding<T> boundTo(T... theValues) {
+        return new Binding<T>(this, theValues);
+    }
 
-	public List<T> getValues() {
-		if (!isBound()) {
-			throw new IllegalArgumentException("Term " + this + " is not bound");
-		}
-		return this.values;
-	}
+    // -----------------
+    // Core Object
+    // -----------------
 
-	public Long size() {
-		if (this.values == null) {
-			return null;
-		} else {
-			return new Long(this.values.size());
-		}
-	}
-
-	public boolean isScalar() {
-		if (this.values == null) {
-			return false;
-		}
-		return size() == 1;
-	}
-
-	public boolean isBound() {
-		return this.values != null;
-	}
-
-	public boolean isFree() {
-		return this.values == null;
-	}
-
-	// -----------------
-	// Core Object
-	// -----------------
-
-	@Override
-	public String toString() {
-		if (name != null) {
-			return name;
-		}
-		return "Var@" + Integer.toHexString(this.hashCode());
-	}
-
-	public boolean unify(T display) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public String toString() {
+        if (name != null) {
+            return name;
+        }
+        return "Var@" + Integer.toHexString(this.hashCode());
+    }
 
 }

@@ -22,51 +22,51 @@ import org.logic2j.predsolver.model.Var;
 
 /**
  * Sample domain model: an Organization.
- * 
+ *
  * @version $Id: Organization.java,v 1.1 2011-04-06 07:52:48 tettoni Exp $
  */
 public class Organization extends Artefact {
 
-	public static interface Predicate1 {
-		public boolean apply(Organization that, Var<Organization> theArgument);
-	}
-	
-	public static interface Predicate2<T0> {
-		public boolean apply(Organization that, Var<Organization> theArgument, Var<T0> theVar);
-	}
+    public static interface Predicate1 {
+        public boolean apply(Organization that, Var<Organization> theArgument);
+    }
 
-	private String acronym;
-	
-	public Organization() {
-		super();
-	}
+    public static interface Predicate2<T0> {
+        public boolean apply(Organization that, Var<Organization> theArgument, Var<T0> theVar);
+    }
 
-	public Organization(Long theId) {
-		super(theId);
-	}
+    private String acronym;
 
-	// ---------------------------------------------------------------------------
-	// Accessors
-	// ---------------------------------------------------------------------------
+    public Organization() {
+        super();
+    }
+
+    public Organization(Long theId) {
+        super(theId);
+    }
+
+    // ---------------------------------------------------------------------------
+    // Accessors
+    // ---------------------------------------------------------------------------
 
 
-	public String getAcronym() {
-		return acronym;
-	}
+    public String getAcronym() {
+        return acronym;
+    }
 
-	public void setAcronym(String acronym) {
-		this.acronym = acronym;
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Factories
-	// ---------------------------------------------------------------------------
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
+    }
 
-	public static Organization createIso() {
-		final Organization iso = new Organization(68L);
-		iso.setDisplay("ISO");
-		return iso;
-	}
+    // ---------------------------------------------------------------------------
+    // Factories
+    // ---------------------------------------------------------------------------
+
+    public static Organization createIso() {
+        final Organization iso = new Organization(68L);
+        iso.setDisplay("ISO");
+        return iso;
+    }
 
 
 }
