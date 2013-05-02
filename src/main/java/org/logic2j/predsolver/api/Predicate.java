@@ -11,6 +11,7 @@ import org.logic2j.predsolver.impl.LogicProvider;
 import org.logic2j.predsolver.impl.solver.bridge.Bridge;
 import org.logic2j.predsolver.impl.solver.bridge.Record;
 import org.logic2j.predsolver.predicate.And;
+import org.logic2j.predsolver.predicate.Or;
 
 /**
  * A {@link Predicate} relate {@link Term}(s) together to express true
@@ -18,7 +19,7 @@ import org.logic2j.predsolver.predicate.And;
  * 
  * @author Laurent
  */
-public class Predicate implements Term {
+public abstract class Predicate implements Term {
 
     @SuppressWarnings("unused")
     private Provider provider;
@@ -39,10 +40,8 @@ public class Predicate implements Term {
         this.terms = theArguments;
     }
 
-    public void apply(Bridge bridge) {
-        throw new UnsupportedOperationException("Not implemented in superclass: " + this + ".apply(" + bridge + ')');
-    }
-
+    public abstract void apply(Bridge bridge);
+    
     // -----------------
     // Logical operators (placed here for a fluent API)
     // -----------------
@@ -52,15 +51,15 @@ public class Predicate implements Term {
     }
 
     public Predicate or(Predicate that) {
-        return new Predicate(LogicProvider.INSTANCE, "or", this, that);
+        return new Or(this, that);
     }
 
     public Predicate not(Predicate that) {
-        return new Predicate(LogicProvider.INSTANCE, "not", that);
+        return new NonImplementedPredicate(LogicProvider.INSTANCE, "not", that);
     }
 
     public Predicate negated() {
-        return new Predicate(LogicProvider.INSTANCE, "not", this);
+        return new NonImplementedPredicate(LogicProvider.INSTANCE, "not", this);
     }
 
     // -----------------

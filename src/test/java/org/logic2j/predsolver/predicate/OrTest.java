@@ -11,7 +11,9 @@ import org.logic2j.predsolver.impl.solver.SolverImpl;
 import org.logic2j.predsolver.predicate.Or;
 import org.logic2j.predsolver.predicate.Range;
 import org.logic2j.predsolver.sample.Even08;
+import org.logic2j.predsolver.sample.Fail;
 import org.logic2j.predsolver.sample.Odd19;
+import org.logic2j.predsolver.sample.True;
 
 public class OrTest extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(OrTest.class);
@@ -109,5 +111,20 @@ public class OrTest extends PredTestBase {
         final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
         logger.info("Solution: {}", tuples);
         assertEquals("[<1>, <2>, <3>, <null>, <null>, <null>, <10>, <11>, <12>]", tuples.toString());
+    }
+
+    @Test
+    public void or_true() throws Exception {
+        Predicate pred = new Or(new Even08(X), new True());
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
+        logger.info("Solution: {}", tuples);
+        assertEquals("[<0>, <2>, <4>, <6>, <8>, <null>]", tuples.toString());
+    }
+
+    @Test
+    public void or_fail() throws Exception {
+        Predicate pred = new Or(new Even08(X), new Fail());
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
+        assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
     }
 }

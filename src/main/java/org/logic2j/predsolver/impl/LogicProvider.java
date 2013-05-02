@@ -1,5 +1,6 @@
 package org.logic2j.predsolver.impl;
 
+import org.logic2j.predsolver.api.NonImplementedPredicate;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Var;
@@ -62,11 +63,11 @@ public class LogicProvider implements Provider {
     }
 
     public static Predicate not(Predicate pred) {
-        return new Predicate(INSTANCE, "not", pred);
+        return new NonImplementedPredicate(INSTANCE, "not", pred);
     }
 
     public static Predicate exists(Predicate pred) {
-        return new Predicate(INSTANCE, "exists", pred);
+        return new NonImplementedPredicate(INSTANCE, "exists", pred);
     }
     
     /**
@@ -76,7 +77,7 @@ public class LogicProvider implements Provider {
      * @return
      */
     public static <T> Predicate integer(Var<T> x) {
-        return new Predicate(INSTANCE, "integer", x);
+        return new NonImplementedPredicate(INSTANCE, "integer", x);
     }
 
     /**
@@ -87,11 +88,11 @@ public class LogicProvider implements Provider {
      * @return
      */
     public static <T> Predicate string(Var<T> x, Var<String> s) {
-        return new Predicate(INSTANCE, "string", x, s);
+        return new NonImplementedPredicate(INSTANCE, "string", x, s);
     }
 
     public static <T> Predicate validUrl(Var<? extends CharSequence> s) {
-        return new Predicate(INSTANCE, "validUrl", s);
+        return new NonImplementedPredicate(INSTANCE, "validUrl", s);
     }
 
 

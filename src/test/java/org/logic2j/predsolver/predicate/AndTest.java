@@ -9,11 +9,11 @@ import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
-import org.logic2j.predsolver.predicate.And;
-import org.logic2j.predsolver.predicate.Range;
 import org.logic2j.predsolver.sample.Abs;
 import org.logic2j.predsolver.sample.Even08;
+import org.logic2j.predsolver.sample.Fail;
 import org.logic2j.predsolver.sample.Odd19;
+import org.logic2j.predsolver.sample.True;
 
 public class AndTest extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AndTest.class);
@@ -144,4 +144,23 @@ public class AndTest extends PredTestBase {
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
     }
+    
+    @Test
+    public void and_true() throws Exception {
+        Predicate pred = new And(new Even08(X), new True());
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
+        logger.info("Solution: {}", tuples);
+        assertEquals(5, tuples.size());
+        assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
+    }
+    
+    @Test
+    public void and_fail() throws Exception {
+        Predicate pred = new And(new Even08(X), new Fail());
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
+        logger.info("Solution: {}", tuples);
+        assertEquals(0, tuples.size());
+    }
+    
+    
 }
