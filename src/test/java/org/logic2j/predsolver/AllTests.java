@@ -7,15 +7,16 @@ import org.logic2j.predsolver.api.BindingTest;
 import org.logic2j.predsolver.api.VarTest;
 import org.logic2j.predsolver.gd3.Gd3ProviderUseCaseTest;
 import org.logic2j.predsolver.gd3.LexicalUseCaseTest;
-import org.logic2j.predsolver.pred.AbsTest;
-import org.logic2j.predsolver.pred.AndTest;
-import org.logic2j.predsolver.pred.DigitTest;
-import org.logic2j.predsolver.pred.Even08Test;
-import org.logic2j.predsolver.pred.MemberTest;
-import org.logic2j.predsolver.pred.OrTest;
-import org.logic2j.predsolver.pred.RangeTest;
-import org.logic2j.predsolver.pred.SquareTest;
-import org.logic2j.predsolver.solve.bridge.BridgeImplTest;
+import org.logic2j.predsolver.impl.solver.SolverTest;
+import org.logic2j.predsolver.impl.solver.bridge.BridgeImplTest;
+import org.logic2j.predsolver.predicate.AbsTest;
+import org.logic2j.predsolver.predicate.AndTest;
+import org.logic2j.predsolver.predicate.DigitTest;
+import org.logic2j.predsolver.predicate.Even08Test;
+import org.logic2j.predsolver.predicate.MemberTest;
+import org.logic2j.predsolver.predicate.OrTest;
+import org.logic2j.predsolver.predicate.RangeTest;
+import org.logic2j.predsolver.predicate.SquareTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ //

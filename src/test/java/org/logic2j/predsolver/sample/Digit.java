@@ -1,7 +1,7 @@
 package org.logic2j.predsolver.sample;
 
 import org.logic2j.predsolver.api.Term;
-import org.logic2j.predsolver.pred.Member;
+import org.logic2j.predsolver.predicate.Member;
 
 public class Digit extends Member<Integer> {
 

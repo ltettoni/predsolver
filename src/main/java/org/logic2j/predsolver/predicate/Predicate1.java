@@ -1,16 +1,16 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import org.logic2j.predsolver.api.Binding;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.solve.bridge.Bridge;
-import org.logic2j.predsolver.solve.bridge.Record;
+import org.logic2j.predsolver.impl.solver.bridge.Bridge;
+import org.logic2j.predsolver.impl.solver.bridge.Record;
 
-public abstract class ScalarPredicate<T> extends Predicate {
+public abstract class Predicate1<T> extends Predicate {
 
-    public ScalarPredicate(String theName, Term x) {
+    public Predicate1(String theName, Term x) {
         super(LogicProvider.INSTANCE, theName, x);
     }
 

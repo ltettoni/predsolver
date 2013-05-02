@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,8 @@ import java.util.List;
 import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
-import org.logic2j.predsolver.solve.SolverImpl;
+import org.logic2j.predsolver.impl.solver.SolverImpl;
+import org.logic2j.predsolver.predicate.Range;
 
 public class RangeTest extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(RangeTest.class);

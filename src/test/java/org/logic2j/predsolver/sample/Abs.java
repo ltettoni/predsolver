@@ -2,7 +2,7 @@ package org.logic2j.predsolver.sample;
 
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.pred.Predicate2;
+import org.logic2j.predsolver.predicate.Predicate2;
 
 public class Abs extends Predicate2<Integer, Integer> {
 

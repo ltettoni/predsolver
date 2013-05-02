@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.logic2j.predsolver.api.Term;
-import org.logic2j.predsolver.pred.ScalarPredicate;
+import org.logic2j.predsolver.predicate.Predicate1;
 
-public class Odd19 extends ScalarPredicate<Integer> {
+public class Odd19 extends Predicate1<Integer> {
 
     private static final List<Integer> LIST = Arrays.asList(new Integer[] { 1, 3, 5, 7, 9 });
 

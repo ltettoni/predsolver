@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,9 +7,9 @@ import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.solve.bridge.Bridge;
-import org.logic2j.predsolver.solve.bridge.BridgeImpl;
-import org.logic2j.predsolver.solve.bridge.Record;
+import org.logic2j.predsolver.impl.solver.bridge.Bridge;
+import org.logic2j.predsolver.impl.solver.bridge.BridgeImpl;
+import org.logic2j.predsolver.impl.solver.bridge.Record;
 
 public class Or extends Predicate {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Or.class);

@@ -8,9 +8,9 @@ import java.util.Set;
 
 import org.logic2j.predsolver.api.tuple.Tuple;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.pred.And;
-import org.logic2j.predsolver.solve.bridge.Bridge;
-import org.logic2j.predsolver.solve.bridge.Record;
+import org.logic2j.predsolver.impl.solver.bridge.Bridge;
+import org.logic2j.predsolver.impl.solver.bridge.Record;
+import org.logic2j.predsolver.predicate.And;
 
 /**
  * A {@link Predicate} relate {@link Term}(s) together to express true

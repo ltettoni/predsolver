@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.logic2j.predsolver.api.Term;
 
-public class Member<T> extends ScalarPredicate<T> {
+public class Member<T> extends Predicate1<T> {
 
     private final List<T> orderedValues; // Returned in order as specified
     private final Set<T> bag; // Efficient "contains()"

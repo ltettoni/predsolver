@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import org.logic2j.predsolver.api.Term;
 

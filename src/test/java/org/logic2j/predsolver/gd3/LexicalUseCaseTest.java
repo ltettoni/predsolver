@@ -6,7 +6,7 @@ import static org.logic2j.predsolver.impl.LogicProvider.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.logic2j.predsolver.api.Var;
-import org.logic2j.predsolver.solve.SolverImpl;
+import org.logic2j.predsolver.impl.solver.SolverImpl;
 
 public class LexicalUseCaseTest {
 

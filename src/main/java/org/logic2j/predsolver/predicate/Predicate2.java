@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.predicate;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.solve.bridge.Bridge;
-import org.logic2j.predsolver.solve.bridge.Record;
+import org.logic2j.predsolver.impl.solver.bridge.Bridge;
+import org.logic2j.predsolver.impl.solver.bridge.Record;
 
 public abstract class Predicate2<T1, T2> extends Predicate implements FilteringPredicate2<T1, T2>, DirectPredicate2<T1, T2>, InvertiblePredicate2<T1, T2> {
 

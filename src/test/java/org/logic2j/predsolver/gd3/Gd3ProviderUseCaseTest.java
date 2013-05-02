@@ -7,7 +7,7 @@ import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.api.tuple.Tuple2;
 import org.logic2j.predsolver.impl.JdbcQuery;
-import org.logic2j.predsolver.solve.SolverImpl;
+import org.logic2j.predsolver.impl.solver.SolverImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.logic2j.predsolver.api.Binding.*;

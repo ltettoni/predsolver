@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.solve.bridge;
+package org.logic2j.predsolver.impl.solver.bridge;
 
 import java.util.Arrays;
 import java.util.List;

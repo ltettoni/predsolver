@@ -1,10 +1,14 @@
-package org.logic2j.predsolver.solve.bridge;
+package org.logic2j.predsolver.impl.solver.bridge;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.logic2j.predsolver.api.Binding;
-import org.logic2j.predsolver.pred.PredTestBase;
+import org.logic2j.predsolver.impl.solver.bridge.Bridge;
+import org.logic2j.predsolver.impl.solver.bridge.BridgeImpl;
+import org.logic2j.predsolver.impl.solver.bridge.LoggingBridge;
+import org.logic2j.predsolver.impl.solver.bridge.Record;
+import org.logic2j.predsolver.predicate.PredTestBase;
 
 public class BridgeImplTest extends PredTestBase {
   private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BridgeImplTest.class);

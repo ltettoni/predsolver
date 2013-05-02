@@ -1,4 +1,4 @@
-package org.logic2j.predsolver;
+package org.logic2j.predsolver.impl.solver;
 
 import static org.junit.Assert.*;
 import static org.logic2j.predsolver.impl.LogicProvider.*;
@@ -9,10 +9,10 @@ import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.api.tuple.Tuple2;
-import org.logic2j.predsolver.pred.And;
-import org.logic2j.predsolver.pred.Or;
-import org.logic2j.predsolver.pred.PredTestBase;
-import org.logic2j.predsolver.solve.SolverImpl;
+import org.logic2j.predsolver.impl.solver.SolverImpl;
+import org.logic2j.predsolver.predicate.And;
+import org.logic2j.predsolver.predicate.Or;
+import org.logic2j.predsolver.predicate.PredTestBase;
 
 public class SolverTest extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(SolverTest.class);
