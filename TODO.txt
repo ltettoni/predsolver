@@ -14,9 +14,13 @@ See how to simplify the implementation of binary operators by specifing forward 
 Extend solve() to really solve for Tuple2, Tuple3 (at least)
 -> done
 
+Repackage (api vs. impl), and source vs. test resources. 
+
 Code some real use cases involving, application, session, conversation, and DB scopes.
 
 Predicates of arity/0 ? (boolean)
+
+Comparisons (ge, le, gt, lt, eq, ne). Note: these are not generators, only filters.
 
 Design and code the DB predicates (SqlBuilder et al)
 
