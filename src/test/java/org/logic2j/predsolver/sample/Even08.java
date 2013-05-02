@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.impl.LogicProvider;
 import org.logic2j.predsolver.predicate.Predicate1;
 
 public class Even08 extends Predicate1<Integer> {
@@ -11,7 +12,7 @@ public class Even08 extends Predicate1<Integer> {
     private static final List<Integer> LIST = Arrays.asList(new Integer[] { 0, 2, 4, 6, 8 });
 
     public Even08(Term x) {
-        super("even08", x);
+        super(LogicProvider.INSTANCE, "even08", x);
     }
 
     @Override

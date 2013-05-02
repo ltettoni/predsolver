@@ -1,66 +1,66 @@
 package org.logic2j.predsolver.gd3;
 
-import org.junit.Before;
+import static org.junit.Assert.*;
+import static org.logic2j.predsolver.api.Binding.*;
+import static org.logic2j.predsolver.gd3.Gd3Provider.*;
+import static org.logic2j.predsolver.impl.LogicProvider.*;
+
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.api.tuple.Tuple2;
 import org.logic2j.predsolver.impl.JdbcQuery;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
 
-import static org.junit.Assert.assertEquals;
-import static org.logic2j.predsolver.api.Binding.*;
-import static org.logic2j.predsolver.gd3.Gd3Provider.*;
-import static org.logic2j.predsolver.impl.LogicProvider.exists;
-import static org.logic2j.predsolver.impl.LogicProvider.not;
-
+@SuppressWarnings("unused")
 public class Gd3ProviderUseCaseTest {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Gd3ProviderUseCaseTest.class);
 
     private final Gd3Provider GD3 = new Gd3Provider();
 
-    private Var<Long> com;
+    private final Var<Long> Com = new Var<Long>("Com");
+    private final Var<Integer> X = new Var<Integer>("X");
+    private final Var<Integer> Y = new Var<Integer>("Y");
+    private final Var<Integer> Z = new Var<Integer>("Z");
+    private final Var<String> Group = new Var<String>("Group");
 
-    @Before
-    public void setUp() {
-        // Com is a free var of type Long
-        this.com = new Var<Long>("Com");
-    }
-
-    @Ignore("lexical sample only ")
+    @Ignore("lexical sample only")
     @Test
     public void solvingCanGenerateJdbcQuery() {
         // committee(Com)
-        Predicate pred = committee(com);
+        Predicate pred = committee(Com);
         // select Com from GD3 where committee(Com)
-        JdbcQuery query = GD3.solveAsQuery(pred, com);
+        JdbcQuery query = GD3.solveAsQuery(pred, Com);
         //
         assertEquals("some SQL", query.getSql());
         assertEquals(0, query.getParametersArray().length);
     }
 
-    @Ignore("lexical sample only ")
+    @Ignore("lexical sample only")
     @Test
     public void testLogicalAnd() {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
-        Predicate pred = ref(com, ref).and(committee(com));
+        Predicate pred = ref(Com, ref).and(committee(Com));
         // select Com, Ref from GD3 where ref(Com, Ref), committee(Com)
-        JdbcQuery query = GD3.solveAsQuery(pred, com, ref);
+        JdbcQuery query = GD3.solveAsQuery(pred, Com, ref);
         //
         assertEquals("some SQL", query.getSql());
         assertEquals(0, query.getParametersArray().length);
         assertEquals(2, query.getNumberOfProjections());
     }
 
-    @Ignore("lexical sample only ")
+    @Ignore("lexical sample only")
     @Test
     public void test_extracting_solutions() {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
-        Predicate pred = committee(com).and(ref(com, ref));
-        for (Tuple2<Long, String> pair : new SolverImpl().solve(pred, com, ref)) {
+        Predicate pred = committee(Com).and(ref(Com, ref));
+        for (Tuple2<Long, String> pair : new SolverImpl().solve(pred, Com, ref)) {
             logger.info("Committee #{} has ref: {}", pair.v0, pair.v1);
         }
     }
@@ -68,15 +68,14 @@ public class Gd3ProviderUseCaseTest {
     @Test
     public void test_method_that_composes_several_predicates() {
         Var<StringBuilder> ref = new Var<StringBuilder>("R");
-        @SuppressWarnings("unused")
-		Predicate pred = committeeForBalloting(com).and(ref(com, ref));
+        Predicate pred = committeeForBalloting(Com).and(ref(Com, ref));
     }
 
     /**
      * This is how we define a new predicate based on existing ones:
      * committeeForBalloting(X) :- committee(X), classif(X, ...), classif(X,
      * ...), active(X).
-     *
+     * 
      * @param com
      * @return
      */
@@ -87,8 +86,22 @@ public class Gd3ProviderUseCaseTest {
 
     @Test
     public void test_search_one_of_several_values() {
-    	@SuppressWarnings("unused")
-		Predicate pred = classif(com, cst("classifA", "classifB"));
+        Predicate pred = classif(Com, cst("classifA", "classifB"));
+    }
+
+    // -----------------------------------------------------------
+    // Mixing non-DB and DB predicates
+    // -----------------------------------------------------------
+
+    @Test
+    public void mixingNonDbWithDbPredicates() {
+        SessionProvider mySession = SessionProvider.INSTANCE;
+        Gd3Provider db = Gd3Provider.INSTANCE;
+        // 
+        Predicate pred = mySession.authInGroup(Group);
+//        Predicate pred = mySession.mbuaOf(X).and(db.committee(Com).and(db.owner(Com, X)));
+        final List<Tuple1<String>> tuples = new SolverImpl().solve(pred, Group);
+        logger.info("Solution: {}", tuples);
     }
 
     // -----------------------------------------------------------
@@ -98,15 +111,13 @@ public class Gd3ProviderUseCaseTest {
     @Test
     public void test_search_where_any_value_exists() {
         // Not sure this is correct
-    	@SuppressWarnings("unused")
-		Predicate pred = exists(classif(com, cst("classifA", "classifB")));
+        Predicate pred = exists(classif(Com, cst("classifA", "classifB")));
     }
 
     @Test
     public void test_search_where_any_value_does_not_exists() {
         // Not sure this is correct
-    	@SuppressWarnings("unused")
-		Predicate pred = not(exists(classif(com, cst("classifA", "classifB"))));
+        Predicate pred = not(exists(classif(Com, cst("classifA", "classifB"))));
     }
 
 }

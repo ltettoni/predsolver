@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.impl.LogicProvider;
 
 public class Member<T> extends Predicate1<T> {
 
@@ -13,11 +15,11 @@ public class Member<T> extends Predicate1<T> {
     private final Set<T> bag; // Efficient "contains()"
 
     public Member(Term x, T... values) {
-        this("member", x, values);
+        this(LogicProvider.INSTANCE, "member", x, values);
     }
 
-    public Member(String theName, Term x, T... values) {
-        super(theName, x);
+    public Member(Provider provider, String theName, Term x, T... values) {
+        super(provider, theName, x);
         this.orderedValues = Arrays.asList(values);
         this.bag = new HashSet<T>(Arrays.asList(values));
     }

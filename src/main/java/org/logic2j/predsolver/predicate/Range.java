@@ -1,11 +1,12 @@
 package org.logic2j.predsolver.predicate;
 
 import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.impl.LogicProvider;
 
 public class Range extends Member<Integer> {
 
     public Range(Term x, int min, int max) {
-        super("range", x, arrayRange(min, max));
+        super(LogicProvider.INSTANCE, "range", x, arrayRange(min, max));
     }
 
     private static Integer[] arrayRange(int min, int max) {

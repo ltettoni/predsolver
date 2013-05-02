@@ -16,7 +16,7 @@ import org.logic2j.predsolver.impl.JdbcProvider;
  * @author Laurent
  */
 public class Gd3Provider extends JdbcProvider {
-    private static final Gd3Provider INSTANCE = new Gd3Provider();
+    public static final Gd3Provider INSTANCE = new Gd3Provider();
 
     public static Predicate mbua(Var<? extends Number> org) {
         return new NonImplementedPredicate(INSTANCE, "mbua", org);

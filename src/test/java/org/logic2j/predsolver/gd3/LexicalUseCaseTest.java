@@ -10,7 +10,7 @@ import org.logic2j.predsolver.impl.solver.SolverImpl;
 
 public class LexicalUseCaseTest {
 
-    @Ignore("lexical sample only ")
+    @Ignore("lexical sample only")
     @Test
     public void mixing_context_db_logic() throws Exception {
         Var<Integer> X = new Var<Integer>();
@@ -18,5 +18,5 @@ public class LexicalUseCaseTest {
         Var<String> U = new Var<String>();
         new SolverImpl().solve(mbua(X).and(owner(C, X)).and(url(C, U)).and(validUrl(U)), C);
     }
-
+    
 }
