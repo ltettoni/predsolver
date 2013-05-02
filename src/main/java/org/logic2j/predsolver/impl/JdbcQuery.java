@@ -1,4 +1,4 @@
-package org.logic2j.predsolver;
+package org.logic2j.predsolver.impl;
 
 import javax.sql.DataSource;
 

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.tuple.Tuple;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple;
 
 public class PredTestBase {
 

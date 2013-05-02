@@ -1,9 +1,10 @@
-package org.logic2j.predsolver.pred;
+package org.logic2j.predsolver.sample;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.logic2j.predsolver.model.Term;
+import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.pred.ScalarPredicate;
 
 public class Odd19 extends ScalarPredicate<Integer> {
 

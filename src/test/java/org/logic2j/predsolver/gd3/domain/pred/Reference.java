@@ -1,9 +1,9 @@
 package org.logic2j.predsolver.gd3.domain.pred;
 
-import org.logic2j.predsolver.Provider;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Provider;
+import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.gd3.domain.dto.core.Committee;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Term;
 
 public class Reference extends Predicate implements Committee.Predicate2<CharSequence> {
 

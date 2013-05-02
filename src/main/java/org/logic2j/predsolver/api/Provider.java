@@ -1,6 +1,5 @@
-package org.logic2j.predsolver;
+package org.logic2j.predsolver.api;
 
-import org.logic2j.predsolver.model.Predicate;
 
 /**
  * A {@link Provider} "owns" the definition of {@link Predicate}s.

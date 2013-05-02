@@ -3,11 +3,11 @@ package org.logic2j.predsolver.pred;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Term;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.solve.Solver;
+import org.logic2j.predsolver.solve.SolverImpl;
 import org.logic2j.predsolver.solve.bridge.Bridge;
 import org.logic2j.predsolver.solve.bridge.BridgeImpl;
 import org.logic2j.predsolver.solve.bridge.LoggingBridge;
@@ -55,7 +55,7 @@ public class And extends Predicate {
             } else {
                 // No elements in common, we'll use a temporary solution and
                 // generate the cartesian product
-                final BridgeImpl bridgeI = Solver.allocBridge(predI);
+                final BridgeImpl bridgeI = SolverImpl.allocBridge(predI);
                 logger.info("Before solving {} on local bridge: {}", predI, bridge);
                 predI.apply(new LoggingBridge(bridgeI));
                 logger.info("After solving  {} on local bridge: {}", predI, bridgeI);

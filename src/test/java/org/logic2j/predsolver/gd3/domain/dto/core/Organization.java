@@ -18,7 +18,7 @@
  */
 package org.logic2j.predsolver.gd3.domain.dto.core;
 
-import org.logic2j.predsolver.model.Var;
+import org.logic2j.predsolver.api.Var;
 
 /**
  * Sample domain model: an Organization.

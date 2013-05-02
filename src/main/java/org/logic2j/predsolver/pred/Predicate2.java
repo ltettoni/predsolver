@@ -2,18 +2,18 @@ package org.logic2j.predsolver.pred;
 
 import java.util.List;
 
-import org.logic2j.predsolver.Provider;
+import org.logic2j.predsolver.api.FilteringPredicate2;
+import org.logic2j.predsolver.api.DirectPredicate2;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.InvertiblePredicate2;
+import org.logic2j.predsolver.api.Provider;
+import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.model.Filter2;
-import org.logic2j.predsolver.model.Forward2;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Reverse2;
-import org.logic2j.predsolver.model.Term;
-import org.logic2j.predsolver.model.Var;
 import org.logic2j.predsolver.solve.bridge.Bridge;
 import org.logic2j.predsolver.solve.bridge.Record;
 
-public abstract class Predicate2<T1, T2> extends Predicate implements Filter2<T1, T2>, Forward2<T1, T2>, Reverse2<T1, T2> {
+public abstract class Predicate2<T1, T2> extends Predicate implements FilteringPredicate2<T1, T2>, DirectPredicate2<T1, T2>, InvertiblePredicate2<T1, T2> {
 
     public Predicate2(Provider theProvider, String theName, Term x, Term y) {
         super(theProvider, theName, x, y);
@@ -35,7 +35,7 @@ public abstract class Predicate2<T1, T2> extends Predicate implements Filter2<T1
             List<Record> fetched = fetch(bridge, 0);
             for (Record rec : fetched) {
                 final T1 vx = bridge.get(rec, x);
-                final T2[] ys = forward(vx);
+                final T2[] ys = direct(vx);
                 final int nbr = ys.length;
                 if (nbr == 0) {
                     bridge.remove(rec);
@@ -51,7 +51,7 @@ public abstract class Predicate2<T1, T2> extends Predicate implements Filter2<T1
             // Inverse function
             for (Record rec : fetch(bridge, 1)) {
                 final T2 vy = bridge.get(rec, y);
-                final T1[] xs = reverse(vy);
+                final T1[] xs = inverse(vy);
                 final int nbr = xs.length;
                 if (nbr == 0) {
                     bridge.remove(rec);

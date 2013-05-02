@@ -1,11 +1,13 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.logic2j.predsolver.api.Binding;
+import org.logic2j.predsolver.api.Var;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.logic2j.predsolver.model.Binding.cst;
+import static org.logic2j.predsolver.api.Binding.*;
 
 /**
  * TODO: link two variables together. One solution (compatible with predicate

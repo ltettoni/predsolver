@@ -3,11 +3,11 @@ package org.logic2j.predsolver.solve.bridge;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.model.Binding;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.tuple.Tuple1;
-import org.logic2j.predsolver.tuple.Tuple2;
-import org.logic2j.predsolver.tuple.Tuple3;
+import org.logic2j.predsolver.api.Binding;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple1;
+import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.api.tuple.Tuple3;
 
 public interface Bridge {
 

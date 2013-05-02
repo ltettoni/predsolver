@@ -3,7 +3,7 @@ package org.logic2j.predsolver.solve.bridge;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.logic2j.predsolver.model.Binding;
+import org.logic2j.predsolver.api.Binding;
 import org.logic2j.predsolver.pred.PredTestBase;
 
 public class BridgeImplTest extends PredTestBase {

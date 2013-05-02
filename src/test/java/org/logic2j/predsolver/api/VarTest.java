@@ -1,7 +1,8 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.logic2j.predsolver.api.Var;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

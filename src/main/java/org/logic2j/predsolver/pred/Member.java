@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.model.Term;
+import org.logic2j.predsolver.api.Term;
 
 public class Member<T> extends ScalarPredicate<T> {
 

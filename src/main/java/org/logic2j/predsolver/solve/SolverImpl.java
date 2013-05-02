@@ -3,22 +3,22 @@ package org.logic2j.predsolver.solve;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.model.Binding;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Var;
+import org.logic2j.predsolver.api.Binding;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple1;
+import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.api.tuple.Tuple3;
 import org.logic2j.predsolver.solve.bridge.BridgeImpl;
 import org.logic2j.predsolver.solve.bridge.LoggingBridge;
-import org.logic2j.predsolver.tuple.Tuple1;
-import org.logic2j.predsolver.tuple.Tuple2;
-import org.logic2j.predsolver.tuple.Tuple3;
 
 /**
  * Solving goals happens in this class.
  * 
  * @author Laurent
  */
-public class Solver {
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Solver.class);
+public class SolverImpl {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(SolverImpl.class);
 
     // -----------------
     // One argument
@@ -34,7 +34,7 @@ public class Solver {
         logger.info("Before solving: {}", bridge);
         pred.apply(new LoggingBridge(bridge));
         logger.info("After solving : {}", bridge);
-        return bridge.asList(projectionBinding.var);
+        return bridge.asList(projectionBinding.getVar());
     }
 
     // -----------------
@@ -58,7 +58,7 @@ public class Solver {
         logger.info("Before solving: {}", bridge);
         pred.apply(new LoggingBridge(bridge));
         logger.info("After solving : {}", bridge);
-        return bridge.asList(v0.var, v1.var);
+        return bridge.asList(v0.getVar(), v1.getVar());
     }
 
 
@@ -75,7 +75,7 @@ public class Solver {
         logger.info("Before solving: {}", bridge);
         pred.apply(new LoggingBridge(bridge));
         logger.info("After solving : {}", bridge);
-        return bridge.asList(v0.var, v1.var, v2.var);
+        return bridge.asList(v0.getVar(), v1.getVar(), v2.getVar());
     }
 
     // -----------------
@@ -86,7 +86,7 @@ public class Solver {
         final BridgeImpl bridge = new BridgeImpl();
         final Set<Var<?>> publicVars = pred.publicVars();
         for (Binding<?> binding : projectionBindings) {
-            if (publicVars.contains(binding.var)) {
+            if (publicVars.contains(binding.getVar())) {
                 bridge.parallelColumn(binding);
             }
         }

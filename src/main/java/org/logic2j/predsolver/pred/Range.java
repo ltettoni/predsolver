@@ -1,6 +1,6 @@
 package org.logic2j.predsolver.pred;
 
-import org.logic2j.predsolver.model.Term;
+import org.logic2j.predsolver.api.Term;
 
 public class Range extends Member<Integer> {
 

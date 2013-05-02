@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,12 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.Provider;
+import org.logic2j.predsolver.api.tuple.Tuple;
 import org.logic2j.predsolver.impl.LogicProvider;
 import org.logic2j.predsolver.pred.And;
 import org.logic2j.predsolver.solve.bridge.Bridge;
 import org.logic2j.predsolver.solve.bridge.Record;
-import org.logic2j.predsolver.tuple.Tuple;
 
 /**
  * A {@link Predicate} relate {@link Term}(s) together to express true
@@ -29,7 +28,7 @@ public class Predicate implements Term {
     public Predicate(Provider theProvider, String theName, Term... theArguments) {
         for (Term term : theArguments) {
             if (term instanceof Binding<?>) {
-                if (((Binding<?>) term).var.isPublic()) {
+                if (((Binding<?>) term).getVar().isPublic()) {
                     throw new IllegalArgumentException("Cannot instantiate predicate " + theName + " with argument " + term
                             + " because it is bound and not anonymous");
                 }
@@ -87,7 +86,7 @@ public class Predicate implements Term {
     @SuppressWarnings("unchecked")
     public <T> Var<T> var(int i) {
         if (terms[i] instanceof Binding<?>) {
-            return ((Binding<T>) terms[i]).var;
+            return ((Binding<T>) terms[i]).getVar();
         } else if (terms[i] instanceof Var<?>) {
             return (Var<T>) terms[i];
         } else {

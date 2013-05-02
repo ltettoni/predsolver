@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.tuple;
+package org.logic2j.predsolver.api.tuple;
 
 import java.io.Serializable;
 

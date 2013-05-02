@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 import java.util.Collection;
 import java.util.Comparator;

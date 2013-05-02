@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Binding<T> implements Term {
 
-    public Var<T> var;
+    private final Var<T> var;
     private List<T> values = null;
 
     public Binding(Var<T> var) {
@@ -53,6 +53,14 @@ public class Binding<T> implements Term {
         return binding;
     }
 
+    // -----------------
+    // Accessors
+    // -----------------
+
+    public Var<T> getVar() {
+        return var;
+    }
+
     // Set values
 
     public void setValue(T theValue) {
@@ -86,6 +94,10 @@ public class Binding<T> implements Term {
         }
         return this.values;
     }
+
+    // -----------------
+    // Other
+    // -----------------
 
     public Integer size() {
         if (this.values == null) {

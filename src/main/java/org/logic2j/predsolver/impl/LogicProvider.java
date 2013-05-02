@@ -1,17 +1,17 @@
 package org.logic2j.predsolver.impl;
 
-import org.logic2j.predsolver.Provider;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.pred.Abs;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Provider;
+import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.pred.And;
-import org.logic2j.predsolver.pred.Digit;
-import org.logic2j.predsolver.pred.Even08;
 import org.logic2j.predsolver.pred.Member;
-import org.logic2j.predsolver.pred.Odd19;
 import org.logic2j.predsolver.pred.Or;
 import org.logic2j.predsolver.pred.Range;
-import org.logic2j.predsolver.pred.Square;
+import org.logic2j.predsolver.sample.Abs;
+import org.logic2j.predsolver.sample.Digit;
+import org.logic2j.predsolver.sample.Even08;
+import org.logic2j.predsolver.sample.Odd19;
+import org.logic2j.predsolver.sample.Square;
 
 /**
  * Define base predicates that do not depend on a particular data source. Note

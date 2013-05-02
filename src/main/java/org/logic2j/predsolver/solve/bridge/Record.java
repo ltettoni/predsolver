@@ -4,7 +4,7 @@ import java.util.IdentityHashMap;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.logic2j.predsolver.model.Var;
+import org.logic2j.predsolver.api.Var;
 
 public class Record {
 

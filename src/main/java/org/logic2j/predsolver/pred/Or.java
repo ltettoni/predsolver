@@ -3,10 +3,10 @@ package org.logic2j.predsolver.pred;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Term;
+import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Term;
-import org.logic2j.predsolver.model.Var;
 import org.logic2j.predsolver.solve.bridge.Bridge;
 import org.logic2j.predsolver.solve.bridge.BridgeImpl;
 import org.logic2j.predsolver.solve.bridge.Record;

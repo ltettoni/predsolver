@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.solve;
+package org.logic2j.predsolver.api;
 
 public enum Cardinality {
 	/**

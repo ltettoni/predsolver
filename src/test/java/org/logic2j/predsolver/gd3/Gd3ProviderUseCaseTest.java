@@ -3,17 +3,17 @@ package org.logic2j.predsolver.gd3;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.logic2j.predsolver.JdbcQuery;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.solve.Solver;
-import org.logic2j.predsolver.tuple.Tuple2;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.impl.JdbcQuery;
+import org.logic2j.predsolver.solve.SolverImpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.logic2j.predsolver.api.Binding.*;
 import static org.logic2j.predsolver.gd3.Gd3Provider.*;
 import static org.logic2j.predsolver.impl.LogicProvider.exists;
 import static org.logic2j.predsolver.impl.LogicProvider.not;
-import static org.logic2j.predsolver.model.Binding.cst;
 
 public class Gd3ProviderUseCaseTest {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Gd3ProviderUseCaseTest.class);
@@ -60,7 +60,7 @@ public class Gd3ProviderUseCaseTest {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
         Predicate pred = committee(com).and(ref(com, ref));
-        for (Tuple2<Long, String> pair : new Solver().solve(pred, com, ref)) {
+        for (Tuple2<Long, String> pair : new SolverImpl().solve(pred, com, ref)) {
             logger.info("Committee #{} has ref: {}", pair.v0, pair.v1);
         }
     }

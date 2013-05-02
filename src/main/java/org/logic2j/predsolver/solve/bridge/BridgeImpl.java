@@ -8,11 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.model.Binding;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.tuple.Tuple1;
-import org.logic2j.predsolver.tuple.Tuple2;
-import org.logic2j.predsolver.tuple.Tuple3;
+import org.logic2j.predsolver.api.Binding;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple1;
+import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.api.tuple.Tuple3;
 
 public class BridgeImpl implements Bridge {
 
@@ -47,12 +47,12 @@ public class BridgeImpl implements Bridge {
     @Override
     public void parallelColumn(Binding<?> extraBinding) {
         if (extraBinding.isBound()) {
-            this.vars.add(extraBinding.var);
+            this.vars.add(extraBinding.getVar());
             List<?> extraValues = extraBinding.getValues();
             if (records == null) {
                 initRecords();
                 for (Object value : extraValues) {
-                    records.add(new Record(extraBinding.var, value));
+                    records.add(new Record(extraBinding.getVar(), value));
                 }
             } else {
                 if (records.size() != extraValues.size()) {
@@ -62,7 +62,7 @@ public class BridgeImpl implements Bridge {
                 Iterator<?> iterator = extraValues.iterator();
                 for (Record rec : records) {
                     final Object extraValue = iterator.next();
-                    rec.set(extraBinding.var, extraValue);
+                    rec.set(extraBinding.getVar(), extraValue);
                 }
             }
         }
@@ -71,18 +71,18 @@ public class BridgeImpl implements Bridge {
     @Override
     public void cartesianColumn(Binding<?> extraBinding) {
         if (extraBinding.isBound()) {
-            this.vars.add(extraBinding.var);
+            this.vars.add(extraBinding.getVar());
             List<?> extraValues = extraBinding.getValues();
             if (records == null) {
                 initRecords();
                 for (Object value : extraValues) {
-                    records.add(new Record(extraBinding.var, value));
+                    records.add(new Record(extraBinding.getVar(), value));
                 }
             } else {
                 for (Record rec : new ArrayList<Record>(records)) {
                     this.remove(rec);
                     for (final Object value : extraValues) {
-                        final Record cloned = new Record(rec).set(extraBinding.var, value);
+                        final Record cloned = new Record(rec).set(extraBinding.getVar(), value);
                         this.add(cloned);
                     }
                 }

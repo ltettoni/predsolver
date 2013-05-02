@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.tuple;
+package org.logic2j.predsolver.api.tuple;
 
 
 public class Tuple2<T0, T1> implements Tuple {

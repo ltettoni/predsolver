@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.model;
+package org.logic2j.predsolver.api;
 
 /**
  * Something that can be used as a parameter to a predicate, can be 

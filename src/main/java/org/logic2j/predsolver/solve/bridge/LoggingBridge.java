@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.model.Binding;
-import org.logic2j.predsolver.model.Var;
-import org.logic2j.predsolver.tuple.Tuple1;
-import org.logic2j.predsolver.tuple.Tuple2;
-import org.logic2j.predsolver.tuple.Tuple3;
+import org.logic2j.predsolver.api.Binding;
+import org.logic2j.predsolver.api.Var;
+import org.logic2j.predsolver.api.tuple.Tuple1;
+import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.api.tuple.Tuple3;
 
 public class LoggingBridge implements Bridge {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(LoggingBridge.class);

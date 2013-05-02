@@ -1,14 +1,17 @@
 package org.logic2j.predsolver.pred;
 
 import static org.junit.Assert.*;
-import static org.logic2j.predsolver.model.Binding.*;
+import static org.logic2j.predsolver.api.Binding.*;
 
 import java.util.List;
 
 import org.junit.Test;
-import org.logic2j.predsolver.model.Predicate;
-import org.logic2j.predsolver.solve.Solver;
-import org.logic2j.predsolver.tuple.Tuple1;
+import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.tuple.Tuple1;
+import org.logic2j.predsolver.sample.Abs;
+import org.logic2j.predsolver.sample.Even08;
+import org.logic2j.predsolver.sample.Odd19;
+import org.logic2j.predsolver.solve.SolverImpl;
 
 public class AndTest extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AndTest.class);
@@ -16,7 +19,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_empty() {
         Predicate and = new And();
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(0, tuples.size());
     }
@@ -24,7 +27,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single() {
         Predicate and = new And(new Even08(X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
@@ -33,7 +36,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_evenX_unboundX() {
         Predicate and = new And(new Even08(X), new Even08(X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
@@ -42,7 +45,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_oddX_unboundX() {
         Predicate and = new And(new Even08(X), new Odd19(X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(0, tuples.size());
     }
@@ -53,7 +56,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_evenY_unboundXY() {
         Predicate and = new And(new Even08(X), new Even08(Y));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, Y);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, Y);
         logger.info("Solution: {}", tuples);
         assertEquals(25, tuples.size());
     }
@@ -64,7 +67,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_evenY_evenZ_unboundXYZ() {
         Predicate and = new And(new Even08(X), new Even08(Y), new Even08(Z));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, Y);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, Y);
         logger.info("Solution: {}", tuples);
         assertEquals(125, tuples.size());
     }
@@ -73,7 +76,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_absZY_unboundXY() {
         Predicate and = new And(new Even08(X), new Abs(Z, X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(9, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>, <2>, <4>, <6>, <8>]", tuples.toString());
@@ -83,7 +86,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_absXY_absXY_unboundXYZ() {
         Predicate and = new And(new Abs(Y, cst(-1, 2, 3)), new Abs(Z, Y));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, Z);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, Z);
         logger.info("Solution: {}", tuples);
         assertEquals(4, tuples.size());
         assertEquals("[<2>, <3>, <-2>, <-3>]", tuples.toString());
@@ -92,7 +95,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_evenX_evenX_evenX_unboundX() {
         Predicate and = new And(new Even08(X), new Even08(X), new Even08(X), new Even08(X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
@@ -101,7 +104,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_single_evenX_even123456_evenX_evenX_unboundX() {
         Predicate and = new And(new Even08(X), new Even08(cst(1, 2, 3, 4)));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(and, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(and, X);
         logger.info("Solution: {}", tuples);
         assertEquals(10, tuples.size());
         assertEquals("[<0>, <0>, <2>, <2>, <4>, <4>, <6>, <6>, <8>, <8>]", tuples.toString());
@@ -111,7 +114,7 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_and_right() {
         Predicate pred = new And(new Range(X, 1, 3), new And(new Range(X, 5, 7), new Range(X, 10, 12)));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(pred, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
         logger.info("Solution: {}", tuples);
         assertEquals("[]", tuples.toString());
     }
@@ -119,14 +122,14 @@ public class AndTest extends PredTestBase {
     @Test
     public void and_and_left() {
         Predicate pred = new And(new And(new Range(X, 1, 3), new Range(X, 5, 7)), new Range(X, 10, 12));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(pred, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
         logger.info("Solution: {}", tuples);
         assertEquals("[]", tuples.toString());
     }
 
     public void and_and_sameright() {
         Predicate pred = new And(new Even08(X), new And(new Even08(X), new Even08(X)));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(pred, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
         logger.info("Solution: {}", tuples);
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
@@ -134,7 +137,7 @@ public class AndTest extends PredTestBase {
     
     public void and_and_sameleft() {
         Predicate pred = new And(new And(new Even08(X), new Even08(X)), new Even08(X));
-        final List<Tuple1<Integer>> tuples = new Solver().solve(pred, X);
+        final List<Tuple1<Integer>> tuples = new SolverImpl().solve(pred, X);
         logger.info("Solution: {}", tuples);
         assertEquals(5, tuples.size());
         assertEquals("[<0>, <2>, <4>, <6>, <8>]", tuples.toString());
