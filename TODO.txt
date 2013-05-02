@@ -18,8 +18,10 @@ Repackage (api vs. impl), and source vs. test resources.
 -> done (to some extent)
 
 Predicates of arity/0 ? (boolean)
+-> done true, fail
 
 Comparisons (ge, le, gt, lt, eq, ne). Note: these are not generators, only filters.
+
 
 Code some real use cases involving, application, session, conversation, and DB scopes.
 
