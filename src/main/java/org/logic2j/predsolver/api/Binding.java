@@ -135,7 +135,14 @@ public class Binding<T> implements Term {
 
     @Override
     public String toString() {
-        return String.valueOf(this.var) + '=' + this.values;
+        StringBuilder sb = new StringBuilder(String.valueOf(this.var));
+        if (this.values==null) {
+            sb.append(":free");
+        } else {
+            sb.append('=');
+            sb.append(this.values);
+        }
+        return sb.toString();
     }
 
 }

@@ -1,8 +1,8 @@
 package org.logic2j.predsolver.gd3;
 
 import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Var;
-import org.logic2j.predsolver.impl.JdbcProvider;
 import org.logic2j.predsolver.predicate.Member;
 
 /**
@@ -10,7 +10,7 @@ import org.logic2j.predsolver.predicate.Member;
  * 
  * @author Laurent
  */
-public class SessionProvider extends JdbcProvider {
+public class SessionProvider implements Provider {
     public static final SessionProvider INSTANCE = new SessionProvider();
 
     /**

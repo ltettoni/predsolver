@@ -21,7 +21,6 @@ import org.logic2j.predsolver.predicate.Or;
  */
 public abstract class Predicate implements Term {
 
-    @SuppressWarnings("unused")
     private Provider provider;
     private final String name;
     public Term terms[];
@@ -66,6 +65,10 @@ public abstract class Predicate implements Term {
     // Accessors
     // -----------------
 
+    public Provider getProvider() {
+        return provider;
+    }
+    
     public String getName() {
         return name;
     }
@@ -101,7 +104,7 @@ public abstract class Predicate implements Term {
         if (terms[i] instanceof Binding<?>) {
             return (Binding<T>) terms[i];
         } else if (terms[i] instanceof Var<?>) {
-            return ((Var<T>) terms[i]).freeBinding();
+            return ((Var<T>) terms[i]).free();
         }
         throw new IllegalArgumentException("variable " + terms[i] + " is neither a Var nor a Binding");
     }

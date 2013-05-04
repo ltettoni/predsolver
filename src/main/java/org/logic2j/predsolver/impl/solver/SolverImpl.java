@@ -27,7 +27,7 @@ public class SolverImpl implements Solver {
 
     @Override
     public <T0> List<Tuple1<T0>> solve(Predicate pred, Var<T0> v0) {
-        return solve(pred, v0.freeBinding());
+        return solve(pred, v0.free());
     }
 
     @Override
@@ -46,17 +46,17 @@ public class SolverImpl implements Solver {
 
     @Override
     public <T0, T1> List<Tuple2<T0, T1>> solve(Predicate pred, Var<T0> v0, Var<T1> v1) {
-        return solve(pred, v0.freeBinding(), v1.freeBinding());
+        return solve(pred, v0.free(), v1.free());
     }
 
     @Override
     public <T0, T1> List<Tuple2<T0, T1>> solve(Predicate pred, Var<T0> v0, Binding<T1> v1) {
-        return solve(pred, v0.freeBinding(), v1);
+        return solve(pred, v0.free(), v1);
     }
 
     @Override
     public <T0, T1> List<Tuple2<T0, T1>> solve(Predicate pred, Binding<T0> v0, Var<T1> v1) {
-        return solve(pred, v0, v1.freeBinding());
+        return solve(pred, v0, v1.free());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class SolverImpl implements Solver {
 
     @Override
     public <T0, T1, T2> List<Tuple3<T0, T1, T2>> solve(Predicate pred, Var<T0> v0, Var<T1> v1, Var<T2> v2) {
-        return solve(pred, v0.freeBinding(), v1.freeBinding(), v2.freeBinding());
+        return solve(pred, v0.free(), v1.free(), v2.free());
     }
 
     @Override

@@ -61,7 +61,7 @@ public class Var<T> implements Term {
     // Convert to Bindings
     // -----------------
 
-    public Binding<T> freeBinding() {
+    public Binding<T> free() {
         return new Binding<T>(this);
     }
 
