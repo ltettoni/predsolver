@@ -5,22 +5,29 @@ import static org.logic2j.predsolver.api.Binding.*;
 import static org.logic2j.predsolver.gd3.Gd3Provider.*;
 import static org.logic2j.predsolver.impl.LogicProvider.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Solver;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.api.tuple.Tuple2;
+import org.logic2j.predsolver.gd3.domain.dto.core.Committee;
 import org.logic2j.predsolver.impl.JdbcQuery;
+import org.logic2j.predsolver.impl.solver.JavaBeanSolver;
+import org.logic2j.predsolver.impl.solver.JdbcSolver;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
 
 @SuppressWarnings("unused")
 public class Gd3ProviderUseCaseTest {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Gd3ProviderUseCaseTest.class);
 
-    private final Gd3Provider GD3 = new Gd3Provider();
+    private final Gd3Provider GD3 = Gd3Provider.INSTANCE;
 
     private final Var<Long> Com = new Var<Long>("Com");
     private final Var<Integer> X = new Var<Integer>("X");
@@ -28,11 +35,36 @@ public class Gd3ProviderUseCaseTest {
     private final Var<Integer> Z = new Var<Integer>("Z");
     private final Var<String> Group = new Var<String>("Group");
 
+    // -----------------------------------------------------------
+    // Simplest DB tests
+    // -----------------------------------------------------------
+
+    @Test
+    public void committees_from_collection() {
+        List<Object> aCollection = new ArrayList<Object>();
+        aCollection.add(new Committee());
+        //
+        Solver solver = new JavaBeanSolver();
+        Predicate pred = GD3.committee(Com);
+        List<Tuple1<Long>> tuples = solver.solve(pred, Com);
+        logger.info("Solution: {}", tuples);
+    }
+
+    @Test
+    public void committees_from_database() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        //
+        Predicate pred = GD3.committee(Com);
+        List<Tuple1<Long>> tuples = solver.solve(pred, Com.free());
+        logger.info("Solution: {}", tuples);
+    }
+
     @Ignore("lexical sample only")
     @Test
     public void solvingCanGenerateJdbcQuery() {
         // committee(Com)
-        Predicate pred = committee(Com);
+        Predicate pred = GD3.committee(Com);
         // select Com from GD3 where committee(Com)
         JdbcQuery query = GD3.solveAsQuery(pred, Com);
         //
@@ -45,7 +77,7 @@ public class Gd3ProviderUseCaseTest {
     public void testLogicalAnd() {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
-        Predicate pred = ref(Com, ref).and(committee(Com));
+        Predicate pred = ref(Com, ref).and(GD3.committee(Com));
         // select Com, Ref from GD3 where ref(Com, Ref), committee(Com)
         JdbcQuery query = GD3.solveAsQuery(pred, Com, ref);
         //
@@ -59,7 +91,7 @@ public class Gd3ProviderUseCaseTest {
     public void test_extracting_solutions() {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
-        Predicate pred = committee(Com).and(ref(Com, ref));
+        Predicate pred = GD3.committee(Com).and(ref(Com, ref));
         for (Tuple2<Long, String> pair : new SolverImpl().solve(pred, Com, ref)) {
             logger.info("Committee #{} has ref: {}", pair.v0, pair.v1);
         }
@@ -80,7 +112,7 @@ public class Gd3ProviderUseCaseTest {
      * @return
      */
     private Predicate committeeForBalloting(Var<Long> com) {
-        return committee(com).and(classif(com, "LEVEL_MAIN", "LEVEL_SUB")).and(classif(com, "FIELD_TECHNICAL", "FIELD_POLICY"))
+        return GD3.committee(com).and(classif(com, "LEVEL_MAIN", "LEVEL_SUB")).and(classif(com, "FIELD_TECHNICAL", "FIELD_POLICY"))
                 .and(active(com));
     }
 
@@ -97,9 +129,10 @@ public class Gd3ProviderUseCaseTest {
     public void mixingNonDbWithDbPredicates() {
         SessionProvider mySession = SessionProvider.INSTANCE;
         Gd3Provider db = Gd3Provider.INSTANCE;
-        // 
+        //
         Predicate pred = mySession.authInGroup(Group);
-//        Predicate pred = mySession.mbuaOf(X).and(db.committee(Com).and(db.owner(Com, X)));
+        // Predicate pred =
+        // mySession.mbuaOf(X).and(db.committee(Com).and(db.owner(Com, X)));
         final List<Tuple1<String>> tuples = new SolverImpl().solve(pred, Group);
         logger.info("Solution: {}", tuples);
     }

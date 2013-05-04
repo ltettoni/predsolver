@@ -20,14 +20,13 @@ Repackage (api vs. impl), and source vs. test resources.
 Predicates of arity/0 ? (boolean)
 -> done true, fail
 
+Design and code the DB predicates (SqlBuilder et al)
+  jdbc:derby:C:\GIT\logic2j\src\test\db\zipcodes1\derby-v10.8.2.1
+
+
 Comparisons (ge, le, gt, lt, eq, ne). Note: these are not generators, only filters.
 
-
 Code some real use cases involving, application, session, conversation, and DB scopes.
-
-Design and code the DB predicates (SqlBuilder et al)
-
-
 
 Avoid using Term to instantiate predicates. Split data predicates to using Binding, and logic operators by using Predicate
 
