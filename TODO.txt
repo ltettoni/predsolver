@@ -20,6 +20,9 @@ Repackage (api vs. impl), and source vs. test resources.
 Predicates of arity/0 ? (boolean)
 -> done true, fail
 
+Simplify the Bridge interface (remove what's no longer needed)
+-> nothing to simplify - all methods are used
+
 Design and code the DB predicates (SqlBuilder et al)
   jdbc:derby:C:\GIT\logic2j\src\test\db\zipcodes1\derby-v10.8.2.1
 

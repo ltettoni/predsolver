@@ -1,0 +1,12 @@
+
+
+Solving against memory or database:
+- not in the predicates
+- but in the Provider or in the Solver?
+  - in the Solver
+    - the data source is in the Solver
+      gd3Solver.solve(committee(Com))
+  - in the Provider
+    - the data source is in the provider
+      pred = gd3Provider.committee(Com)
+      commonSolver.solve(pred)
