@@ -21,7 +21,9 @@ public class Gd3Provider extends JdbcProvider {
         super(connectionString, username, password);
     }
 
-    public static final Gd3Provider INSTANCE = new Gd3Provider("jdbc:derby:C:\\GIT\\logic2j\\src\\test\\db\\zipcodes1\\derby-v10.8.2.1", "APP", "");
+//    public static final Gd3Provider INSTANCE = new Gd3Provider("jdbc:derby:C:\\GIT\\logic2j\\src\\test\\db\\zipcodes1\\derby-v10.8.2.1", "APP", "");
+//    public static final Gd3Provider INSTANCE = new Gd3Provider("jdbc:derby:C:/Data/derby_dev_ci_gd30", "APP", "APP");
+    public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_ci_gd30", "APP", "APP");
 
     public static Predicate mbua(Var<? extends Number> org) {
         return new NonImplementedPredicate(INSTANCE, "mbua", org);

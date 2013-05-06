@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.derby.jdbc.ClientDataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Provider;
@@ -28,13 +29,13 @@ public class JdbcProvider implements Provider {
     private static final String DERBY_USER = "APP";
     private static final String DERBY_PWD = "APP";
 
-    private String connectionString;
+    private String databaseName;
     private String username;
     private String password;
-
-    public JdbcProvider(String connectionString, String username, String password) {
+    
+    public JdbcProvider(String databaseName, String username, String password) {
         super();
-        this.connectionString = connectionString;
+        this.databaseName = databaseName;
         this.username = username;
         this.password = password;
     }
@@ -47,7 +48,7 @@ public class JdbcProvider implements Provider {
      *            "src/test/db/NAME"
      * @return A new Derby EmbeddedDataSource
      */
-    protected DataSource derbyDataSource(String theDerbyDatabaseDir) {
+    protected DataSource derbyEmbeddedDataSource(String theDerbyDatabaseDir) {
         final EmbeddedDataSource ds = new EmbeddedDataSource();
         ds.setDatabaseName(theDerbyDatabaseDir);
         ds.setUser(DERBY_USER);
@@ -59,7 +60,18 @@ public class JdbcProvider implements Provider {
      * @return A {@link DataSource} to the "zipcodes" reference database.
      */
     protected DataSource zipcodesDataSource() {
-        return derbyDataSource(ZIPCODES_DERBY_DIR);
+        return derbyEmbeddedDataSource(ZIPCODES_DERBY_DIR);
+    }
+    
+    /**
+     * @return A {@link DataSource} to the specified database.
+     */
+    protected DataSource effectiveDataSource() {
+        final ClientDataSource ds = new ClientDataSource();
+        ds.setDatabaseName(this.databaseName);
+        ds.setUser(this.username);
+        ds.setPassword(this.password);
+        return ds;
     }
 
     /**
@@ -75,11 +87,13 @@ public class JdbcProvider implements Provider {
         return this.zipcodesConnection;
     }
 
-    public void execute(SqlBuilder3 builder) {
+    public List<Object[]> execute(SqlBuilder3 builder) {
         try {
-            final SqlRunner sqlRunner = new SqlRunner(zipcodesDataSource());
+            final SqlRunner sqlRunner = new SqlRunner(effectiveDataSource());
             final List<Object[]> resultSet = sqlRunner.query(builder.getSelect(), builder.getParameters());
-            int i=0;
+            // Convert ResultSet to list of tuples
+            logger.info("Result set to {} has size={}", builder, resultSet.size());
+            return resultSet;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

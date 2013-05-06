@@ -23,6 +23,7 @@ public interface DBPredicate {
             sb.append(operator);
             sb.append(' ');
             sb.append(value);
+            sb.append(')');
             return sb.toString();
         }
     }

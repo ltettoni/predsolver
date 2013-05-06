@@ -56,7 +56,7 @@ public class Gd3ProviderUseCaseTest {
         Solver solver = new JdbcSolver(dataSource);
         //
         Predicate pred = GD3.committee(Com);
-        List<Tuple1<Long>> tuples = solver.solve(pred, Com.free());
+        List<Tuple1<Long>> tuples = solver.solve(pred, Com.boundTo(22L));
         logger.info("Solution: {}", tuples);
     }
 

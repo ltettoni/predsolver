@@ -44,6 +44,7 @@ public class SqlRunner {
 
   /**
    * @param theDataSource
+   * FIXME should probably use a Connection since DataSource has some specific methods such as getConnection() or getPooledConnection()...
    */
   public SqlRunner(DataSource theDataSource) {
     this.dataSource = theDataSource;

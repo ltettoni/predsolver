@@ -25,8 +25,13 @@ public class BindingTest {
     public void setUp() {
         this.vInt = new Binding<Integer>(new Var<Integer>("Int"));
     }
+    
+    @Test
+    public void emptyConstant() {
+        vInt = cst();
+    }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void scalarConstant() {
         vInt = cst(123);
     }
