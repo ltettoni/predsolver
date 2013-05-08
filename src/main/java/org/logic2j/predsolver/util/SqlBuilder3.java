@@ -10,6 +10,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.logic2j.predsolver.api.Binding;
+
 /**
  * The third version of SqlBuilder, slightly improved here.
  * TODO: possibility to inject parameter valus at a later stage, when the structure of the SqlBuilder is already created (factorized)
@@ -998,9 +1000,46 @@ public class SqlBuilder3 {
       return this.operand;
     }
 
-
   }
 
+  /**
+   * A {@link Criterion} expressing that a {@link Column}'s is related by an operator to a value,
+   * passed as a parameter (and a JDBC placeholder "?" will be used).
+   *
+   * @version $Id$
+   */
+  public class ColumnOperatorBindingCriterion extends ColumnOperatorCriterion {
+
+    private final Binding<?> binding;
+
+    /**
+     * @param theColumn
+     * @param theOperator
+     * @param theBinding
+     */
+    public ColumnOperatorBindingCriterion(Column theColumn, Operator theOperator, Binding<?> theBinding) {
+      super(theColumn, theOperator);
+      this.binding = theBinding;
+    }
+
+    @Override
+    public String toString() {
+      return this.formatter.format(getColumn(), getOperator(), getBinding());
+    }
+
+    @Override
+    public String sql() {
+        if (this.binding.isFree()) {
+            throw new IllegalStateException("Cannot generate " + this + ".sql() for free binding " + this.binding);
+        }
+      return this.formatter.format(getColumn(), getOperator(), addParameter(this.binding.getValues()));
+    }
+
+    public Binding<?> getBinding() {
+      return this.binding;
+    }
+
+  }
   /**
    * Column <operator> <immediate value>
    */
@@ -1251,7 +1290,7 @@ public class SqlBuilder3 {
    * separator value.
    * @throws IllegalArgumentException If coll is null.
    */
-  private static String formatSeparated(Collection<? extends Object> theCollection, String theSeparator) {
+  static String formatSeparated(Collection<? extends Object> theCollection, String theSeparator) {
     if (theCollection == null) {
       throw new IllegalArgumentException("Cannot format null collection");
     }
@@ -1270,4 +1309,35 @@ public class SqlBuilder3 {
     return sb.toString();
   }
 
+
+  /**
+   * Format an array using it's element's {@link String#valueOf(java.lang.Object)} method, but inserting
+   * a separator between consecutive elements, and not surrounding the result by any braket, brace or
+   * parenthesis.
+   * @param theArray The array to format. Must not be null.
+   * @param theSeparator The string used to interleave between consecutive elements. May be "" to pack
+   * elements together. Normally use a space around, e.g. " OR ". If null, then the empty string is used.
+   * @return A formatter string, never null. May span several lines depending on the element's toString() or on the
+   * separator value.
+   * @throws IllegalArgumentException If coll is null.
+   */
+  static String formatSeparated(Object[] theArray, String theSeparator) {
+    if (theArray == null) {
+      throw new IllegalArgumentException("Cannot format null array");
+    }
+    String separator = theSeparator;
+    if (separator == null) {
+      separator = "";
+    }
+    final StringBuffer sb = new StringBuffer();
+    for (int i=0; i<theArray.length; i++) {
+      final String element = String.valueOf(theArray[i]);
+      sb.append(element);
+      if (i < theArray.length-1) {
+        sb.append(separator);
+      }
+    }
+    return sb.toString();
+  }
+  
 }

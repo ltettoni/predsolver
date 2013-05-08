@@ -16,7 +16,7 @@ public class LexicalUseCaseTest {
         Var<Integer> X = new Var<Integer>();
         Var<Integer> C = new Var<Integer>();
         Var<String> U = new Var<String>();
-        new SolverImpl().solve(mbua(X).and(owner(C, X)).and(url(C, U)).and(validUrl(U)), C);
+        new SolverImpl().solve(mbua(X).and(Gd3Provider.INSTANCE.owner(C, X)).and(url(C, U)).and(validUrl(U)), C);
     }
     
 }

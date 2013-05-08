@@ -7,6 +7,7 @@ import org.logic2j.predsolver.api.NonImplementedPredicate;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.gd3.domain.pred.CommId;
+import org.logic2j.predsolver.gd3.domain.pred.Owner;
 import org.logic2j.predsolver.impl.JdbcProvider;
 
 /**
@@ -21,16 +22,15 @@ public class Gd3Provider extends JdbcProvider {
         super(connectionString, username, password);
     }
 
-//    public static final Gd3Provider INSTANCE = new Gd3Provider("jdbc:derby:C:\\GIT\\logic2j\\src\\test\\db\\zipcodes1\\derby-v10.8.2.1", "APP", "");
-//    public static final Gd3Provider INSTANCE = new Gd3Provider("jdbc:derby:C:/Data/derby_dev_ci_gd30", "APP", "APP");
+    // public static final Gd3Provider INSTANCE = new
+    // Gd3Provider("jdbc:derby:C:\\GIT\\logic2j\\src\\test\\db\\zipcodes1\\derby-v10.8.2.1",
+    // "APP", "");
+    // public static final Gd3Provider INSTANCE = new
+    // Gd3Provider("jdbc:derby:C:/Data/derby_dev_ci_gd30", "APP", "APP");
     public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_ci_gd30", "APP", "APP");
 
     public static Predicate mbua(Var<? extends Number> org) {
         return new NonImplementedPredicate(INSTANCE, "mbua", org);
-    }
-
-    public Predicate committee(Var<Long> theId) {
-        return new CommId(this, theId);
     }
 
     public static Predicate active(Var<? extends Number> theId) {
@@ -39,10 +39,6 @@ public class Gd3Provider extends JdbcProvider {
 
     public static Predicate ref(Var<? extends Number> theId, Var<? extends CharSequence> r) {
         return new NonImplementedPredicate(INSTANCE, "ref", theId, r);
-    }
-
-    public static Predicate owner(Var<? extends Number> theArtefact, Var<? extends Number> theOwner) {
-        return new NonImplementedPredicate(INSTANCE, "owner", theArtefact, theOwner);
     }
 
     public static Predicate url(Var<? extends Number> theArtefact, Var<? extends CharSequence> theAddress) {
@@ -56,6 +52,22 @@ public class Gd3Provider extends JdbcProvider {
     // Syntactic sugar for constant args
     public static Predicate classif(Var<? extends Number> theArtefact, String... str) {
         return classif(theArtefact, cst(str));
+    }
+
+    public Predicate owner(Var<Integer> theOwned, Var<Integer> theOwner) {
+        return new Owner(this, theOwned, theOwner.free());
+    }
+
+    public Predicate owner(Var<Integer> theOwned, Binding<Integer> theOwner) {
+        return new Owner(this, theOwned, theOwner);
+    }
+
+    public Predicate committee(Var<Integer> theId) {
+        return new CommId(this, theId);
+    }
+
+    public Predicate comIso(Var<Integer> comm) {
+        return committee(comm).and(owner(comm, cst(68)));
     }
 
 }

@@ -9,24 +9,24 @@ import org.logic2j.predsolver.util.SqlBuilder3;
 import org.logic2j.predsolver.util.SqlBuilder3.Criterion;
 import org.logic2j.predsolver.util.SqlBuilder3.Operator;
 
-public class CommId extends Predicate implements DBPredicate {
+public class CommNumbers extends Predicate implements DBPredicate {
 
     private final ColumnInfo[] columnInfos;
 
-    public CommId(Provider theProvider, Var<Integer> theId) {
+    public CommNumbers(Provider theProvider, Var<Integer> theId) {
         super(theProvider, "committee", theId);
-        this.columnInfos = new ColumnInfo[] { //
-        new ColumnInfo("committee", "id", binding(0)), //
-        };
+        this.columnInfos = new ColumnInfo[] { new ColumnInfo("committee", "tc_number", binding(0)),
+                new ColumnInfo("committee", "sc_number", binding(1)) };
     }
 
     @Override
     public Criterion[] getCriteria(SqlBuilder3 sb) {
         return new Criterion[] { 
-                sb.new ColumnOperatorBindingCriterion(sb.column(sb.table("committee"), "id"), Operator.EQ, binding(0))
+                sb.new ColumnOperatorBindingCriterion(sb.column(sb.table("committee"), "tc_number"), Operator.EQ, binding(0)),
+                sb.new ColumnOperatorBindingCriterion(sb.column(sb.table("committee"), "sc_number"), Operator.EQ, binding(1)),
         };
     }
-
+    
     @Override
     public ColumnInfo[] getColumnSpec() {
         return this.columnInfos;

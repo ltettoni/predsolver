@@ -29,7 +29,7 @@ public class Gd3ProviderUseCaseTest {
 
     private final Gd3Provider GD3 = Gd3Provider.INSTANCE;
 
-    private final Var<Long> Com = new Var<Long>("Com");
+    private final Var<Integer> Com = new Var<Integer>("Com");
     private final Var<Integer> X = new Var<Integer>("X");
     private final Var<Integer> Y = new Var<Integer>("Y");
     private final Var<Integer> Z = new Var<Integer>("Z");
@@ -40,23 +40,34 @@ public class Gd3ProviderUseCaseTest {
     // -----------------------------------------------------------
 
     @Test
+    public void committees_from_database() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        //
+        Predicate pred = GD3.committee(Com);
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(22));
+        logger.info("Solution: {}", tuples);
+    }
+    
+    @Test
+    public void comIso_from_database() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        //
+        Predicate pred = GD3.comIso(Com);
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(22));
+        logger.info("Solution: {}", tuples);
+    }
+
+    
+    @Test
     public void committees_from_collection() {
         List<Object> aCollection = new ArrayList<Object>();
         aCollection.add(new Committee());
         //
         Solver solver = new JavaBeanSolver();
         Predicate pred = GD3.committee(Com);
-        List<Tuple1<Long>> tuples = solver.solve(pred, Com);
-        logger.info("Solution: {}", tuples);
-    }
-
-    @Test
-    public void committees_from_database() {
-        DataSource dataSource = null;
-        Solver solver = new JdbcSolver(dataSource);
-        //
-        Predicate pred = GD3.committee(Com);
-        List<Tuple1<Long>> tuples = solver.solve(pred, Com.boundTo(22L));
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com);
         logger.info("Solution: {}", tuples);
     }
 
@@ -92,7 +103,7 @@ public class Gd3ProviderUseCaseTest {
         Var<String> ref = new Var<String>("R");
         // ref(Com, Ref), committee(Com)
         Predicate pred = GD3.committee(Com).and(ref(Com, ref));
-        for (Tuple2<Long, String> pair : new SolverImpl().solve(pred, Com, ref)) {
+        for (Tuple2<Integer, String> pair : new SolverImpl().solve(pred, Com, ref)) {
             logger.info("Committee #{} has ref: {}", pair.v0, pair.v1);
         }
     }
@@ -111,7 +122,7 @@ public class Gd3ProviderUseCaseTest {
      * @param com
      * @return
      */
-    private Predicate committeeForBalloting(Var<Long> com) {
+    private Predicate committeeForBalloting(Var<Integer> com) {
         return GD3.committee(com).and(classif(com, "LEVEL_MAIN", "LEVEL_SUB")).and(classif(com, "FIELD_TECHNICAL", "FIELD_POLICY"))
                 .and(active(com));
     }

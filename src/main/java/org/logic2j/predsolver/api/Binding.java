@@ -43,7 +43,8 @@ public class Binding<T> implements Term {
     public static <T> Binding<T> cst(T... theValues) {
         final String varName;
         if (theValues.length == 1) {
-            varName = "_cst(" + theValues[0] + ')';
+            varName = null;
+//            varName = "_cst(" + theValues[0] + ')';
         } else {
             varName = null;
         }
