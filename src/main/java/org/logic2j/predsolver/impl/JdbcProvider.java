@@ -21,10 +21,11 @@ import org.logic2j.predsolver.util.SqlRunner;
  * @author Laurent
  */
 public class JdbcProvider implements Provider {
+
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JdbcProvider.class);
 
-    private static final String SRC_TEST_DB = "C:/GIT/logic2j/src/test/db";
     private static final String DERBY_VERSION_STRING = "v10.8.2.1";
+    private static final String SRC_TEST_DB = "C:/GIT/logic2j/src/test/db";
     private static final String ZIPCODES_DERBY_DIR = SRC_TEST_DB + "/zipcodes1/derby-" + DERBY_VERSION_STRING;
     private static final String DERBY_USER = "APP";
     private static final String DERBY_PWD = "APP";
@@ -32,48 +33,64 @@ public class JdbcProvider implements Provider {
     private String databaseName;
     private String username;
     private String password;
-    
-    public JdbcProvider(String databaseName, String username, String password) {
+    private DataSource dataSource;
+    private Connection zipcodesConnection = null;
+
+    protected JdbcProvider(String databaseName, String username, String password) {
         super();
         this.databaseName = databaseName;
         this.username = username;
         this.password = password;
     }
 
-    private Connection zipcodesConnection = null;
+    public JdbcProvider createZipcodeDataSource() {
+        final JdbcProvider result = new JdbcProvider(ZIPCODES_DERBY_DIR, DERBY_USER, DERBY_PWD);
+        setDataSource(zipcodesDataSource());
+        return result;
+    }
+    
+    /**
+     * @return A {@link DataSource} to the "zipcodes" reference database.
+     */
+    private DataSource zipcodesDataSource() {
+        return derbyEmbeddedDataSource();
+    }
 
     /**
-     * @param theDerbyDatabaseDir
+     * @param databaseName
      *            Relative path to the derby binary directory, usually under
      *            "src/test/db/NAME"
      * @return A new Derby EmbeddedDataSource
      */
-    protected DataSource derbyEmbeddedDataSource(String theDerbyDatabaseDir) {
+    protected DataSource derbyEmbeddedDataSource() {
         final EmbeddedDataSource ds = new EmbeddedDataSource();
-        ds.setDatabaseName(theDerbyDatabaseDir);
-        ds.setUser(DERBY_USER);
-        ds.setPassword(DERBY_PWD);
-        return ds;
-    }
-
-    /**
-     * @return A {@link DataSource} to the "zipcodes" reference database.
-     */
-    protected DataSource zipcodesDataSource() {
-        return derbyEmbeddedDataSource(ZIPCODES_DERBY_DIR);
-    }
-    
-    /**
-     * @return A {@link DataSource} to the specified database.
-     */
-    protected DataSource effectiveDataSource() {
-        final ClientDataSource ds = new ClientDataSource();
         ds.setDatabaseName(this.databaseName);
         ds.setUser(this.username);
         ds.setPassword(this.password);
         return ds;
     }
 
+
+    /**
+     * @return A {@link DataSource} to the specified database.
+     */
+    protected DataSource derbyNetworkDataSource() {
+        final ClientDataSource ds = new ClientDataSource();
+        ds.setDatabaseName(this.databaseName);
+        ds.setUser(this.username);
+        ds.setPassword(this.password);
+        return ds;
+    }
+    
+    public DataSource getDataSource() {
+        return this.dataSource;
+    }
+    
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    
     /**
      * @return A (previously obtained and reused) {@link Connection} to the
      *         "zipcodes" reference database.
@@ -89,7 +106,7 @@ public class JdbcProvider implements Provider {
 
     public List<Object[]> execute(SqlBuilder3 builder) {
         try {
-            final SqlRunner sqlRunner = new SqlRunner(effectiveDataSource());
+            final SqlRunner sqlRunner = new SqlRunner(derbyNetworkDataSource());
             final List<Object[]> resultSet = sqlRunner.query(builder.getSelect(), builder.getParameters());
             // Convert ResultSet to list of tuples
             logger.info("Result set to {} has size={}", builder, resultSet.size());

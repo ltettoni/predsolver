@@ -40,12 +40,33 @@ public class Gd3ProviderUseCaseTest {
     // -----------------------------------------------------------
 
     @Test
-    public void committees_from_database() {
+    public void committee_from_database() {
         DataSource dataSource = null;
         Solver solver = new JdbcSolver(dataSource);
         //
         Predicate pred = GD3.committee(Com);
-        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(22));
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(45020));
+        logger.info("Solution: {}", tuples);
+    }
+    
+    
+    @Test
+    public void commNumbers_from_database() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        //
+        Predicate pred = GD3.commNumbers(Com, cst(22,23), cst(5));
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com);
+        logger.info("Solution: {}", tuples);
+    }
+    
+    @Test
+    public void commNumbers2_from_database() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        //
+        Predicate pred = GD3.commNumbers(Com, cst(22,23), new Var<Object>());
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(45020));
         logger.info("Solution: {}", tuples);
     }
     
@@ -55,8 +76,9 @@ public class Gd3ProviderUseCaseTest {
         Solver solver = new JdbcSolver(dataSource);
         //
         Predicate pred = GD3.comIso(Com);
-        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(22));
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com.boundTo(46706));
         logger.info("Solution: {}", tuples);
+        assertEquals(0, tuples.size());
     }
 
     

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.impl.LogicProvider;
@@ -74,4 +75,12 @@ public class And extends Predicate {
         return result;
     }
 
+    /**
+     * @return Assume same provider as our first term, but normally should check all. 
+     */
+    @Override
+    public Provider getProvider() {
+        return ((Predicate) this.terms[0]).getProvider();
+    }
+    
 }

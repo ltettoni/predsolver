@@ -1,26 +1,29 @@
 package org.logic2j.predsolver.impl.solver;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.sql.DataSource;
 
 import org.logic2j.predsolver.api.Binding;
 import org.logic2j.predsolver.api.DBPredicate;
-import org.logic2j.predsolver.api.DBPredicate.ColumnInfo;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.Solver;
+import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.api.tuple.Tuple2;
 import org.logic2j.predsolver.api.tuple.Tuple3;
 import org.logic2j.predsolver.impl.JdbcProvider;
 import org.logic2j.predsolver.predicate.And;
+import org.logic2j.predsolver.util.CollectionMap;
 import org.logic2j.predsolver.util.SqlBuilder3;
-import org.logic2j.predsolver.util.SqlBuilder3.Column;
-import org.logic2j.predsolver.util.SqlBuilder3.ColumnOperatorParameterCriterion;
-import org.logic2j.predsolver.util.SqlBuilder3.Operator;
-import org.logic2j.predsolver.util.SqlBuilder3.Table;
+import org.logic2j.predsolver.util.SqlBuilder3.ColumnOperatorBindingCriterion;
+import org.logic2j.predsolver.util.SqlBuilder3.Criterion;
 
 public class JdbcSolver implements Solver {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JdbcSolver.class);
@@ -49,24 +52,53 @@ public class JdbcSolver implements Solver {
 
     private void fillSqlBuilder(Predicate pred, SqlBuilder3 builder, Binding<?>... projections) {
         if (pred instanceof And) {
-
+            And and = (And) pred;
+            List<ColumnOperatorBindingCriterion> all = new ArrayList<SqlBuilder3.ColumnOperatorBindingCriterion>();
+            for (Term elem : and.terms) {
+                DBPredicate dbpred = (DBPredicate) elem;
+                Criterion[] criteria = dbpred.getCriteria(builder);
+                for (Criterion criterion : criteria) {
+                    ColumnOperatorBindingCriterion bindingCrit = (ColumnOperatorBindingCriterion) criterion;
+                    bindingCrit = bindingCrit.effective(projections);
+                    all.add(bindingCrit);
+                }
+            }
+            logger.info("All binding criteria: {}", all);
+            CollectionMap<Binding<?>, ColumnOperatorBindingCriterion> collMap = new CollectionMap<Binding<?>, SqlBuilder3.ColumnOperatorBindingCriterion>();
+            for (ColumnOperatorBindingCriterion columnOperatorBindingCriterion : all) {
+                collMap.add(columnOperatorBindingCriterion.getBinding(), columnOperatorBindingCriterion);
+            }
+            logger.info("collMap: {}", collMap);
+            for (Entry<Binding<?>, Collection<ColumnOperatorBindingCriterion>> entries : collMap.entrySet()) {
+                Collection<ColumnOperatorBindingCriterion> coll = entries.getValue();
+                Iterator<ColumnOperatorBindingCriterion> iter = coll.iterator();
+                if (iter.hasNext()) {
+                    ColumnOperatorBindingCriterion first = iter.next();
+                    if (first.getBinding().isBound()) {
+                        builder.addConjunction(first);
+                    }
+                    // Add joins
+                    while (iter.hasNext()) {
+                        ColumnOperatorBindingCriterion next = iter.next();
+                        builder.innerJoin(first.getColumn(), next.getColumn());
+                    }
+                }
+            }
         } else if (pred instanceof DBPredicate) {
-            ColumnInfo[] columnSpec = ((DBPredicate) pred).getColumnSpec();
-            // Generate SQL
-
-            for (ColumnInfo columnInfo : columnSpec) {
-                Table table = builder.table(columnInfo.table);
-                Column column = builder.column(table, columnInfo.column);
-                Binding<?> eb = effectiveBinding(columnInfo.value, pred, projections[0]);
-                if (eb.isBound()) {
-                    Operator op = Operator.valueOfSql(columnInfo.operator);
-                    ColumnOperatorParameterCriterion criterion = builder.criterion(column, op, eb.getValues());
-                    builder.addConjunction(criterion);
+            Criterion[] criteria = ((DBPredicate) pred).getCriteria(builder);
+            for (Criterion criterion : criteria) {
+                if (criterion instanceof ColumnOperatorBindingCriterion) {
+                    ColumnOperatorBindingCriterion bindingCrit = (ColumnOperatorBindingCriterion) criterion;
+                    bindingCrit = bindingCrit.effective(projections);
+                    if (bindingCrit.getBinding().isBound()) {
+                        builder.addConjunction(bindingCrit);
+                    }
                 }
             }
         } else {
             throw new UnsupportedOperationException("Can only execute in DB");
         }
+        logger.info("filled SqlBuilder: {}", builder.describe());
     }
 
     private <T0> Binding<T0> effectiveBinding(Binding<?> specBinding, Predicate pred, Binding<T0> projBinding) {

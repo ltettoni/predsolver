@@ -5,8 +5,10 @@ import static org.logic2j.predsolver.api.Binding.*;
 import org.logic2j.predsolver.api.Binding;
 import org.logic2j.predsolver.api.NonImplementedPredicate;
 import org.logic2j.predsolver.api.Predicate;
+import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.gd3.domain.pred.CommId;
+import org.logic2j.predsolver.gd3.domain.pred.CommNumbers;
 import org.logic2j.predsolver.gd3.domain.pred.Owner;
 import org.logic2j.predsolver.impl.JdbcProvider;
 
@@ -18,15 +20,12 @@ import org.logic2j.predsolver.impl.JdbcProvider;
  * @author Laurent
  */
 public class Gd3Provider extends JdbcProvider {
+    
     public Gd3Provider(String connectionString, String username, String password) {
         super(connectionString, username, password);
+        setDataSource(derbyNetworkDataSource());
     }
 
-    // public static final Gd3Provider INSTANCE = new
-    // Gd3Provider("jdbc:derby:C:\\GIT\\logic2j\\src\\test\\db\\zipcodes1\\derby-v10.8.2.1",
-    // "APP", "");
-    // public static final Gd3Provider INSTANCE = new
-    // Gd3Provider("jdbc:derby:C:/Data/derby_dev_ci_gd30", "APP", "APP");
     public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_ci_gd30", "APP", "APP");
 
     public static Predicate mbua(Var<? extends Number> org) {
@@ -64,6 +63,10 @@ public class Gd3Provider extends JdbcProvider {
 
     public Predicate committee(Var<Integer> theId) {
         return new CommId(this, theId);
+    }
+
+    public Predicate commNumbers(Var<Integer> theId, Term... theArgs) {
+        return new CommNumbers(this, theArgs);
     }
 
     public Predicate comIso(Var<Integer> comm) {
