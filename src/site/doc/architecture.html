@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.3  (Win32)">
+	<META NAME="CREATED" CONTENT="20130528;240831">
+	<META NAME="CHANGED" CONTENT="20130528;16173749">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt }
+		H1.cjk { font-family: "Microsoft YaHei"; font-size: 16pt }
+		H1.ctl { font-family: "Mangal"; font-size: 16pt }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-style: italic }
+		H2.ctl { font-family: "Mangal"; font-size: 14pt; font-style: italic }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="fr-CH" DIR="LTR">
+<H1 LANG="en-US" CLASS="western">PredSolver (better name sought...)</H1>
+<H2 LANG="en-US" CLASS="western">Concepts</H2>
+<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=39*>
+	<COL WIDTH=124*>
+	<COL WIDTH=94*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Concept</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">Purpose</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US">Example &amp; Notes</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Var</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">A typed and named placeholder for values</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">X : Integer</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">S: String</P>
+			<P LANG="en-US">D: Timestamp</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Binding</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">The current state of a Variable, being either free
+			(no values), or associated to zero, one, many values.</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US">Ideally, Bindings may be able to store a finite or
+			infinite set of values, exposing either data, functions, or
+			iterators to access them.</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Predicate</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">An association of several Bindings or Predicates
+			in a way that can be proven true or false</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Solver</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">The algorithm that can prove predicates</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Tuple</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">A singleton, pair, triple, quad, etc or related
+			solutions to a predicate.</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P LANG="en-US"><BR><BR>
+</P>
+<P LANG="en-US">Notes&nbsp;: we used to have a &laquo;&nbsp;Provider&nbsp;&raquo;
+that creates and owns predicates. This makes some sense because
+predicates are defined in a domain (the space to solve a problem),
+and need connections to data sources. They are definitely not
+floating in the air.</P>
+<P LANG="en-US"><BR><BR>
+</P>
+<P LANG="en-US"><BR><BR>
+</P>
+</BODY>
+</HTML>

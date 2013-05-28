@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.3  (Win32)">
+	<META NAME="CREATED" CONTENT="20130528;240831">
+	<META NAME="CHANGED" CONTENT="20130528;16272560">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt }
+		H1.cjk { font-family: "Microsoft YaHei"; font-size: 16pt }
+		H1.ctl { font-family: "Mangal"; font-size: 16pt }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-style: italic }
+		H2.ctl { font-family: "Mangal"; font-size: 14pt; font-style: italic }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="fr-CH" DIR="LTR">
+<H1 LANG="en-US" CLASS="western">PredSolver (better name sought...)</H1>
+<H2 LANG="en-US" CLASS="western">Issues</H2>
+<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=39*>
+	<COL WIDTH=124*>
+	<COL WIDTH=94*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Issue</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">Description</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US">Impact / Examples</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Predicates use positional arguments</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">child(P, C), or
+			child(C, P), who is C, who is P?</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Varargs not supported</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US">Often one has to define the same predicate several
+			times to implement variable arguments</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Named arguments sought</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">For rich data sources,
+			predicates such as tbl(col1, col2, col3) are not the way to go.</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">One must be able to
+			query:</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">tbl(col1=a, col5=e)</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">instead of</P>
+			<P LANG="en-US">tbl(a, _, _, _, e) 
+			</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US">Limited binding to DB</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">Defining every
+			predicate in a rigid n-ary form over a flexible RDB data model is
+			stupid.</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="en-US">Why not having the predicates bound directly to
+			the DATA ELEMENT definitions, not even the columns definitions.
+			The joins would come up naturally.</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">T1(PK: customer_key,
+			COL1: customer_name)</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm">T2(CID:  customer_key,
+			COL1: order_date)</P>
+			<P LANG="en-US" STYLE="margin-bottom: 0cm"><BR>
+			</P>
+			<P LANG="en-US">One should be able to directly query for
+			customer_name and order_date. The join by customer_key is implicit
+			in the path between the two data elements</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=15%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=48%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+		<TD WIDTH=37%>
+			<P LANG="en-US"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P LANG="en-US"><BR><BR>
+</P>
+<P LANG="en-US"><BR><BR>
+</P>
+<P LANG="en-US"><BR><BR>
+</P>
+</BODY>
+</HTML>
