@@ -60,8 +60,21 @@ public class Gd3ProviderUseCaseTest {
         logger.info("Solution: {}", tuples);
     }
     
+
     @Test
-    public void commNumbers2_from_database() {
+    public void commNumbers_from_database_tc() {
+        DataSource dataSource = null;
+        Solver solver = new JdbcSolver(dataSource);
+        Var<Integer> SC = new Var<Integer>("SC");
+        //
+        Predicate pred = GD3.commNumbers(Com, cst(22,23), SC).and(member(SC, 1,2,3));
+        List<Tuple1<Integer>> tuples = solver.solve(pred, Com);
+        logger.info("Solution: {}", tuples);
+    }
+    
+    
+    @Test
+    public void commNumbersX_from_database() {
         DataSource dataSource = null;
         Solver solver = new JdbcSolver(dataSource);
         //

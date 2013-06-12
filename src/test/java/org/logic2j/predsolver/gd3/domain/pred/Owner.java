@@ -12,14 +12,14 @@ import org.logic2j.predsolver.util.SqlBuilder3.Operator;
 
 public class Owner extends Predicate implements DBPredicate {
 
-    private final ColumnInfo[] columnInfos;
+//    private final ColumnInfo[] columnInfos;
 
     public Owner(Provider theProvider, Var<Integer> theOwned, Binding<Integer> theOwner) {
         super(theProvider, "owner", theOwned, theOwner);
-        this.columnInfos = new ColumnInfo[] { //
-        new ColumnInfo("pred_owner", "id", binding(0)), //
-                new ColumnInfo("pred_owner", "owner", binding(1)), //
-        };
+//        this.columnInfos = new ColumnInfo[] { //
+//        new ColumnInfo("pred_owner", "id", binding(0)), //
+//                new ColumnInfo("pred_owner", "owner", binding(1)), //
+//        };
     }
 
     @Override
@@ -30,10 +30,10 @@ public class Owner extends Predicate implements DBPredicate {
         };
     }
     
-    @Override
-    public ColumnInfo[] getColumnSpec() {
-        return this.columnInfos;
-    }
+//    @Override
+//    public ColumnInfo[] getColumnSpec() {
+//        return this.columnInfos;
+//    }
 
     @Override
     public void apply(Bridge bridge) {

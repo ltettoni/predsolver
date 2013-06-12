@@ -65,8 +65,8 @@ public class Gd3Provider extends JdbcProvider {
         return new CommId(this, theId);
     }
 
-    public Predicate commNumbers(Var<Integer> theId, Term... theArgs) {
-        return new CommNumbers(this, theArgs);
+    public Predicate commNumbers(Var<Integer> theId, Term tcNumber, Term scNumber) {
+        return new CommNumbers(this, tcNumber, scNumber);
     }
 
     public Predicate comIso(Var<Integer> comm) {

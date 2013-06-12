@@ -39,8 +39,11 @@ public class JdbcSolver implements Solver {
 
     @Override
     public <T0> List<Tuple1<T0>> solve(Predicate pred, Binding<T0> projectionBinding) {
+        CollectionMap<Var<?>, Predicate> mapping = new CollectionMap<Var<?>, Predicate>();
+        fillVarPredicateMapping(pred, mapping);
+        
         final SqlBuilder3 builder = new SqlBuilder3();
-        fillSqlBuilder(pred, builder, projectionBinding);
+        fillSqlBuilder(pred, builder, mapping, projectionBinding);
 
         // Execute SQL
         JdbcProvider provider = (JdbcProvider) pred.getProvider();
@@ -50,13 +53,28 @@ public class JdbcSolver implements Solver {
 
     }
 
-    private void fillSqlBuilder(Predicate pred, SqlBuilder3 builder, Binding<?>... projections) {
+    private void fillVarPredicateMapping(Predicate pred, CollectionMap<Var<?>, Predicate> mapping) {
+        for (Term t: pred.terms) {
+            if (t instanceof Predicate) {
+                fillVarPredicateMapping((Predicate)t, mapping);
+            } else if (t instanceof Var) {
+                mapping.add((Var)t, pred);
+            } else if (t instanceof Binding) {
+                mapping.add(((Binding)t).getVar(), pred);
+            }
+        }
+    }
+
+    private void fillSqlBuilder(Predicate pred, SqlBuilder3 builder, CollectionMap<Var<?>, Predicate> mapping, Binding<?>... projections) {
         if (pred instanceof And) {
             And and = (And) pred;
             List<ColumnOperatorBindingCriterion> all = new ArrayList<SqlBuilder3.ColumnOperatorBindingCriterion>();
             for (Term elem : and.terms) {
                 DBPredicate dbpred = (DBPredicate) elem;
                 Criterion[] criteria = dbpred.getCriteria(builder);
+                if (criteria==null) {
+                    throw new IllegalStateException("DBPredicate " + dbpred + ".getCriteria() returns null");
+                }
                 for (Criterion criterion : criteria) {
                     ColumnOperatorBindingCriterion bindingCrit = (ColumnOperatorBindingCriterion) criterion;
                     bindingCrit = bindingCrit.effective(projections);

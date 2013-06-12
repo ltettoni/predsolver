@@ -11,13 +11,13 @@ import org.logic2j.predsolver.util.SqlBuilder3.Operator;
 
 public class CommId extends Predicate implements DBPredicate {
 
-    private final ColumnInfo[] columnInfos;
+//    private final ColumnInfo[] columnInfos;
 
     public CommId(Provider theProvider, Term theId) {
         super(theProvider, "committee", theId);
-        this.columnInfos = new ColumnInfo[] { //
-        new ColumnInfo("committee", "id", binding(0)), //
-        };
+//        this.columnInfos = new ColumnInfo[] { //
+//        new ColumnInfo("committee", "id", binding(0)), //
+//        };
     }
 
     @Override
@@ -27,10 +27,10 @@ public class CommId extends Predicate implements DBPredicate {
         };
     }
 
-    @Override
-    public ColumnInfo[] getColumnSpec() {
-        return this.columnInfos;
-    }
+//    @Override
+//    public ColumnInfo[] getColumnSpec() {
+//        return this.columnInfos;
+//    }
 
     @Override
     public void apply(Bridge bridge) {

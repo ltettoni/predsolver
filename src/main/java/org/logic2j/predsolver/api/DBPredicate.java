@@ -33,7 +33,7 @@ public interface DBPredicate {
         }
     }
 
-    public ColumnInfo[] getColumnSpec();
+//    public ColumnInfo[] getColumnSpec();
     
     public Criterion[] getCriteria(SqlBuilder3 theBuilder);
 

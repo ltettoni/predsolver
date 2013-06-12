@@ -5,9 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.logic2j.predsolver.api.DBPredicate;
 import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Term;
 import org.logic2j.predsolver.impl.LogicProvider;
+import org.logic2j.predsolver.util.SqlBuilder3;
+import org.logic2j.predsolver.util.SqlBuilder3.Criterion;
+import org.logic2j.predsolver.util.SqlBuilder3.Operator;
 
 public class Member<T> extends Predicate1<T> {
 

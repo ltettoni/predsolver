@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * A {@link Binding} is the endpoint of a constraint, it can hold either zero,
+ * The association of a Variable and its current values: it can hold either zero,
  * one, or several simultaneous values, finite or infinite.
  * 
  * It is used to specify parameters to a problem, or to extract results from the

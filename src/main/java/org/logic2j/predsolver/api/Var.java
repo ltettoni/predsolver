@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Comparator;
 
 /**
- * A {@link Var} is a typed and named placeholder used to represent the same
+ * A {@link Var} is a typed and named placeholder used to represent
  * value(s) in a logical expression. It is used to specify parameters to a
  * problem, or to identify results from the solution.
  * 

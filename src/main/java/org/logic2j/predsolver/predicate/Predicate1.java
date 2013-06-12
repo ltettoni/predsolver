@@ -39,6 +39,7 @@ public abstract class Predicate1<T> extends Predicate {
             } else {
                 // Free var
                 final Iterable<T> generator = generatorFunction();
+                // Should we check if generator == null meaning the function cannot generate???
                 for (T i: generator) {
                     bridge.add(new Record(var0, i));
                 }
