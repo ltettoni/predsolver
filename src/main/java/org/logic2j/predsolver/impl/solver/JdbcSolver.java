@@ -47,7 +47,7 @@ public class JdbcSolver implements Solver {
 
         // Execute SQL
         JdbcProvider provider = (JdbcProvider) pred.getProvider();
-        List<Object[]> resultSet = provider.execute(builder);
+        provider.execute(builder);
         // Now convert to tuple1
         return Collections.emptyList();
 
@@ -58,9 +58,9 @@ public class JdbcSolver implements Solver {
             if (t instanceof Predicate) {
                 fillVarPredicateMapping((Predicate)t, mapping);
             } else if (t instanceof Var) {
-                mapping.add((Var)t, pred);
+                mapping.add((Var<?>)t, pred);
             } else if (t instanceof Binding) {
-                mapping.add(((Binding)t).getVar(), pred);
+                mapping.add(((Binding<?>)t).getVar(), pred);
             }
         }
     }
@@ -117,13 +117,6 @@ public class JdbcSolver implements Solver {
             throw new UnsupportedOperationException("Can only execute in DB");
         }
         logger.info("filled SqlBuilder: {}", builder.describe());
-    }
-
-    private <T0> Binding<T0> effectiveBinding(Binding<?> specBinding, Predicate pred, Binding<T0> projBinding) {
-        if (specBinding.isBound()) {
-            return (Binding<T0>) specBinding;
-        }
-        return projBinding;
     }
 
     @Override
