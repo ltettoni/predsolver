@@ -1,4 +1,4 @@
-package org.logic2j.predsolver.sample;
+package org.logic2j.predsolver.predicate;
 
 import java.util.Arrays;
 import java.util.List;

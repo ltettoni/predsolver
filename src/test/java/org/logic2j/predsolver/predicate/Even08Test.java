@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
-import org.logic2j.predsolver.sample.Even08;
 
 public class Even08Test extends PredTestBase {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Even08Test.class);

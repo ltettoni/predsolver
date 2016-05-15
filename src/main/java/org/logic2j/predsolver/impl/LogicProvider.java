@@ -7,12 +7,7 @@ import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.predicate.And;
 import org.logic2j.predsolver.predicate.Member;
 import org.logic2j.predsolver.predicate.Or;
-import org.logic2j.predsolver.predicate.Range;
-import org.logic2j.predsolver.sample.Abs;
-import org.logic2j.predsolver.sample.Digit;
-import org.logic2j.predsolver.sample.Even08;
-import org.logic2j.predsolver.sample.Odd19;
-import org.logic2j.predsolver.sample.Square;
+import org.logic2j.predsolver.predicate.*;
 
 /**
  * Define base predicates that do not depend on a particular data source. Note

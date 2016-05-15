@@ -1,11 +1,5 @@
 package org.logic2j.predsolver.impl;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.sql.DataSource;
-
 import org.apache.derby.jdbc.ClientDataSource;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 import org.logic2j.predsolver.api.Predicate;
@@ -13,6 +7,11 @@ import org.logic2j.predsolver.api.Provider;
 import org.logic2j.predsolver.api.Var;
 import org.logic2j.predsolver.util.SqlBuilder3;
 import org.logic2j.predsolver.util.SqlRunner;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Provide data from a relational {@link DataSource}, exposing queries for the
@@ -24,8 +23,8 @@ public class JdbcProvider implements Provider {
 
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JdbcProvider.class);
 
-    private static final String DERBY_VERSION_STRING = "v10.8.2.1";
-    private static final String SRC_TEST_DB = "C:/GIT/logic2j/src/test/db";
+    private static final String DERBY_VERSION_STRING = "v10.10.2.0";
+    private static final String SRC_TEST_DB = "C:/GIT/logic2j/src/test/resource/db";
     private static final String ZIPCODES_DERBY_DIR = SRC_TEST_DB + "/zipcodes1/derby-" + DERBY_VERSION_STRING;
     private static final String DERBY_USER = "APP";
     private static final String DERBY_PWD = "APP";
@@ -57,7 +56,6 @@ public class JdbcProvider implements Provider {
     }
 
     /**
-     * @param databaseName
      *            Relative path to the derby binary directory, usually under
      *            "src/test/db/NAME"
      * @return A new Derby EmbeddedDataSource

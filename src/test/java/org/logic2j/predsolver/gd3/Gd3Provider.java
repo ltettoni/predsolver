@@ -1,7 +1,5 @@
 package org.logic2j.predsolver.gd3;
 
-import static org.logic2j.predsolver.api.Binding.*;
-
 import org.logic2j.predsolver.api.Binding;
 import org.logic2j.predsolver.api.NonImplementedPredicate;
 import org.logic2j.predsolver.api.Predicate;
@@ -11,6 +9,8 @@ import org.logic2j.predsolver.gd3.domain.pred.CommId;
 import org.logic2j.predsolver.gd3.domain.pred.CommNumbers;
 import org.logic2j.predsolver.gd3.domain.pred.Owner;
 import org.logic2j.predsolver.impl.JdbcProvider;
+
+import static org.logic2j.predsolver.api.Binding.cst;
 
 /**
  * Predicates defined in a particular case of relational data store, for example
@@ -26,7 +26,7 @@ public class Gd3Provider extends JdbcProvider {
         setDataSource(derbyNetworkDataSource());
     }
 
-    public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_ci_gd30", "APP", "APP");
+    public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_iso_gd30", "APP", "APP");
 
     public static Predicate mbua(Var<? extends Number> org) {
         return new NonImplementedPredicate(INSTANCE, "mbua", org);

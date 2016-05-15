@@ -8,11 +8,7 @@ import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
-import org.logic2j.predsolver.predicate.Or;
-import org.logic2j.predsolver.predicate.Range;
-import org.logic2j.predsolver.sample.Even08;
 import org.logic2j.predsolver.sample.Fail;
-import org.logic2j.predsolver.sample.Odd19;
 import org.logic2j.predsolver.sample.True;
 
 public class OrTest extends PredTestBase {

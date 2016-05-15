@@ -9,10 +9,7 @@ import org.junit.Test;
 import org.logic2j.predsolver.api.Predicate;
 import org.logic2j.predsolver.api.tuple.Tuple1;
 import org.logic2j.predsolver.impl.solver.SolverImpl;
-import org.logic2j.predsolver.sample.Abs;
-import org.logic2j.predsolver.sample.Even08;
 import org.logic2j.predsolver.sample.Fail;
-import org.logic2j.predsolver.sample.Odd19;
 import org.logic2j.predsolver.sample.True;
 
 public class AndTest extends PredTestBase {
