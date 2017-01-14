@@ -23,7 +23,7 @@ public class JdbcProvider implements Provider {
 
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JdbcProvider.class);
 
-    private static final String DERBY_VERSION_STRING = "v10.10.2.0";
+    private static final String DERBY_VERSION_STRING = "v10.13.1.1";
     private static final String SRC_TEST_DB = "C:/GIT/logic2j/src/test/resource/db";
     private static final String ZIPCODES_DERBY_DIR = SRC_TEST_DB + "/zipcodes1/derby-" + DERBY_VERSION_STRING;
     private static final String DERBY_USER = "APP";

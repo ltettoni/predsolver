@@ -26,7 +26,7 @@ public class Gd3Provider extends JdbcProvider {
         setDataSource(derbyNetworkDataSource());
     }
 
-    public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby_dev_iso_gd30", "APP", "APP");
+    public static final Gd3Provider INSTANCE = new Gd3Provider("C:/Data/derby-schemas-10.13/dev_iso_gd30", "APP", "APP");
 
     public static Predicate mbua(Var<? extends Number> org) {
         return new NonImplementedPredicate(INSTANCE, "mbua", org);

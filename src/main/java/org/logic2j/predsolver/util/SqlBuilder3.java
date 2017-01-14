@@ -1,5 +1,7 @@
 package org.logic2j.predsolver.util;
 
+import org.logic2j.predsolver.api.Binding;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,14 +12,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.logic2j.predsolver.api.Binding;
-
 /**
  * The third version of SqlBuilder, slightly improved here. TODO: possibility to
  * inject parameter valus at a later stage, when the structure of the SqlBuilder
  * is already created (factorized) TODO: cannot express AST expressions (OR,
  * NOT) TODO: no aggregations (min, max, sum, count)
- * 
+ *
+ * FIXME Bogus handling of parameters - mutable in toString()!!!
+ *
  * @version $Id: SqlBuilder3.java,v 1.7 2011-10-14 22:53:46 tettoni Exp $
  */
 public class SqlBuilder3 {
@@ -32,7 +34,7 @@ public class SqlBuilder3 {
      * One of the constants {@link #SELECT}, {@link #UPDATE} or {@link #DELETE}.
      */
     private String instruction = SELECT; // The default statement is a query
-    List<Object> parameters = new ArrayList<Object>();
+    private List<Object> parameters = new ArrayList<Object>();
     private boolean distinct = false; // Generate "select distinct ..." or
                                       // "count(distinct ...)"
 
@@ -49,6 +51,10 @@ public class SqlBuilder3 {
         // Nothing
     }
 
+    /**
+     * Copy constructor
+     * @param original
+     */
     public SqlBuilder3(SqlBuilder3 original) {
         this.parameters = new ArrayList<Object>(original.parameters);
         this.instruction = original.instruction;
@@ -463,7 +469,7 @@ public class SqlBuilder3 {
     }
 
     public Object[] getParameters() {
-        return this.parameters.toArray(new Object[] {});
+        return this.parameters.toArray(new Object[this.parameters.size()]);
     }
 
     public void setParameters(Object... theParameters) {
@@ -1158,7 +1164,7 @@ public class SqlBuilder3 {
 
         @Override
         public String sql() {
-            if (this.binding.isFree()) {
+            if (this.binding == null || this.binding.isFree()) {
                 throw new IllegalStateException("Cannot generate " + this + ".sql() for free binding " + this.binding);
             }
             return this.formatter.format(getColumn(), getOperator(), addParameter(this.binding.getValues()));
@@ -1294,7 +1300,7 @@ public class SqlBuilder3 {
         @Override
         public String sql() {
             if (getOperand() != null) {
-                SqlBuilder3.this.parameters.addAll(Arrays.asList(getOperand()));
+                SqlBuilder3.this.parameters.addAll(Arrays.asList(flattenedParams(getOperand())));
             }
             return getColumn().sql() + getOperator().getSql() + '(' + this.sql + ')';
         }
